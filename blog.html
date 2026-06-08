@@ -1,508 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Nzali Phiri</title>
 
-<title>Blog | Nzali Phiri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#111111;
+      --bg-soft:#171717;
+      --card:#ffffff;
+      --card-soft:#f8f7f4;
+      --navy:#0f172a;
+      --gold:#d6c2a8;
+      --gold-2:#c8a97e;
+      --sage:#8f9b84;
+      --text:#1f2937;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.08);
+      --shadow:0 16px 40px rgba(0,0,0,.08);
+    }
 
-<style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+    html{
+      scroll-behavior:smooth;
+    }
 
-body{
-background:#f8fafc;
-color:#1e293b;
-}
+    body{
+      font-family:'Inter', sans-serif;
+      background:var(--bg);
+      color:#f5f1eb;
+      line-height:1.7;
+    }
 
-/* HERO */
+    img{
+      max-width:100%;
+      display:block;
+    }
 
-.blog-hero{
-background:linear-gradient(135deg,#0f172a,#1e293b);
-padding:120px 20px;
-text-align:center;
-color:white;
-}
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
 
-.blog-hero h1{
-font-size:3rem;
-margin-bottom:15px;
-}
+    .container{
+      width:min(1160px, calc(100% - 32px));
+      margin:auto;
+    }
 
-.blog-hero p{
-max-width:700px;
-margin:auto;
-opacity:.9;
-line-height:1.8;
-}
+    .section{
+      padding:80px 0;
+    }
 
-/* FEATURED */
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.24em;
+      color:var(--sage);
+      font-size:.78rem;
+      margin-bottom:14px;
+    }
 
-.featured{
-max-width:1200px;
-margin:70px auto;
-padding:0 20px;
-}
+    .h1,
+    .h2,
+    .h3{
+      font-family:'Cormorant Garamond', serif;
+      line-height:.95;
+      font-weight:600;
+      margin:0;
+    }
 
-.featured-card{
-background:white;
-border-radius:25px;
-overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,.08);
-}
+    .h1{
+      font-size:clamp(3rem, 8vw, 5.8rem);
+    }
 
-.featured-card img{
-width:100%;
-height:450px;
-object-fit:cover;
-}
+    .h2{
+      font-size:clamp(2rem, 5vw, 3.6rem);
+    }
 
-.featured-content{
-padding:40px;
-}
+    .h3{
+      font-size:clamp(1.35rem, 2.4vw, 1.8rem);
+    }
 
-.badge{
-display:inline-block;
-background:#c59d5f;
-color:white;
-padding:8px 18px;
-border-radius:50px;
-font-size:.85rem;
-margin-bottom:20px;
-}
+    .muted{
+      color:var(--muted);
+    }
 
-.featured-content h2{
-margin-bottom:15px;
-font-size:2rem;
-color:#0f172a;
-}
+    .btns{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
 
-.featured-content p{
-line-height:1.8;
-color:#64748b;
-}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:700;
+      transition:.25s ease;
+    }
 
-/* BLOG GRID */
+    .btn:hover{
+      transform:translateY(-3px);
+    }
 
-.blog-section{
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
+    .btn.primary{
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#111;
+    }
 
-.blog-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-gap:30px;
-}
+    .btn.ghost{
+      background:rgba(255,255,255,.03);
+      border-color:rgba(214,194,168,.24);
+      color:#f5f1eb;
+    }
 
-.blog-card{
-background:white;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,.08);
-transition:.4s;
-}
+    .btn.ghost:hover{
+      background:rgba(214,194,168,.08);
+    }
 
-.blog-card:hover{
-transform:translateY(-10px);
-}
+    header.site{
+      background:rgba(17,17,17,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
 
-.blog-card img{
-width:100%;
-height:250px;
-object-fit:cover;
-}
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      min-height:74px;
+    }
 
-.blog-content{
-padding:25px;
-}
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
 
-.category{
-background:#c59d5f;
-color:white;
-padding:8px 16px;
-border-radius:50px;
-font-size:.8rem;
-display:inline-block;
-margin-bottom:15px;
-}
+    .brand strong{
+      letter-spacing:.24em;
+      font-size:.9rem;
+    }
 
-.blog-content h3{
-margin-bottom:10px;
-color:#0f172a;
-}
+    .brand span{
+      font-size:.8rem;
+      color:var(--muted);
+    }
 
-.blog-content p{
-line-height:1.8;
-color:#64748b;
-}
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
 
-.read-btn{
-margin-top:20px;
-padding:12px 25px;
-background:#0f172a;
-border:none;
-color:white;
-border-radius:50px;
-cursor:pointer;
-font-weight:600;
-}
+    .nav-links a{
+      color:var(--muted);
+      padding:8px 4px;
+    }
 
-.read-btn:hover{
-background:#c59d5f;
-}
+    .nav-links a:hover{
+      color:#f5f1eb;
+    }
 
-.full-article{
-max-height:0;
-overflow:hidden;
-transition:.6s ease;
-}
+    .hero{
+      padding:54px 0 20px;
+    }
 
-.full-article.active{
-max-height:1000px;
-padding-top:20px;
-}
+    .hero-wrap{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:32px;
+      align-items:center;
+    }
 
-/* CTA */
+    .hero-copy p{
+      max-width:62ch;
+      color:#d4d4d4;
+      margin-top:18px;
+    }
 
-.cta{
-background:#0f172a;
-color:white;
-padding:80px 20px;
-margin-top:80px;
-text-align:center;
-}
+    .hero-photo{
+      min-height:460px;
+      border-radius:28px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.06);
+      background:
+        linear-gradient(135deg, rgba(214,194,168,.22), rgba(143,155,132,.18)),
+        #1b1b1b;
+      box-shadow:0 18px 50px rgba(0,0,0,.25);
+      position:relative;
+    }
 
-.cta h2{
-font-size:2rem;
-margin-bottom:15px;
-}
+    .hero-photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
 
-.cta p{
-max-width:700px;
-margin:auto;
-line-height:1.8;
-margin-bottom:30px;
-}
+    .hero-photo .label{
+      position:absolute;
+      left:18px;
+      bottom:18px;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(17,17,17,.72);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.9rem;
+    }
 
-.cta a{
-display:inline-block;
-padding:15px 35px;
-background:#c59d5f;
-color:white;
-text-decoration:none;
-border-radius:50px;
-font-weight:600;
-}
+    .featured{
+      background:#fff;
+      color:var(--text);
+      border-radius:28px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+    }
 
-/* MOBILE */
+    .featured-inner{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+    }
 
-@media(max-width:768px){
+    .featured-image{
+      min-height:380px;
+    }
 
-.blog-hero h1{
-font-size:2.2rem;
-}
+    .featured-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
 
-.featured-card img{
-height:250px;
-}
+    .featured-content{
+      padding:30px;
+      background:var(--card);
+    }
 
-.featured-content{
-padding:25px;
-}
+    .tags{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
 
-}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(214,194,168,.12);
+      border:1px solid rgba(214,194,168,.18);
+      color:#7a644d;
+      font-size:.82rem;
+      font-weight:600;
+    }
 
-</style>
+    .featured-content p{
+      color:var(--muted);
+      margin-top:14px;
+    }
+
+    .post-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:22px;
+      margin-top:24px;
+    }
+
+    .post{
+      background:#fff;
+      color:var(--text);
+      border-radius:24px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+    }
+
+    .post img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+
+    .post-body{
+      padding:22px;
+    }
+
+    .post-body p{
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    details{
+      margin-top:14px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+
+    summary{
+      list-style:none;
+      cursor:pointer;
+      font-weight:700;
+      color:var(--navy);
+    }
+
+    summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .article{
+      margin-top:12px;
+      color:var(--muted);
+    }
+
+    .article p{
+      margin-bottom:12px;
+    }
+
+    .cta{
+      background:var(--navy);
+      border-radius:28px;
+      padding:40px;
+      text-align:center;
+      border:1px solid rgba(214,194,168,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .cta p{
+      max-width:70ch;
+      margin:14px auto 0;
+      color:#d4d4d4;
+    }
+
+    .footer{
+      border-top:1px solid rgba(255,255,255,.05);
+      background:#0b0b0b;
+      margin-top:80px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr;
+      gap:24px;
+      padding:46px 0;
+    }
+
+    .footer a{
+      color:var(--muted);
+    }
+
+    .footer a:hover{
+      color:#f5f1eb;
+    }
+
+    @media (max-width: 960px){
+      .hero-wrap,
+      .featured-inner,
+      .post-grid,
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .hero-photo,
+      .featured-image{
+        min-height:300px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .section{
+        padding:68px 0;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .post img{
+        height:210px;
+      }
+
+      .featured-content,
+      .post-body,
+      .cta{
+        padding:20px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<section class="blog-hero">
-
-<h1>Insights & Resources</h1>
-
-<p>
-Evidence-based nutrition guidance, research insights,
-and practical tips to support healthier lifestyles and smarter decisions.
-</p>
-
-</section>
-
-<section class="featured">
-
-<div class="featured-card">
-
-<img src="hero-photo.jpg">
-
-<div class="featured-content">
-
-<span class="badge">Featured Article</span>
-
-<h2>Healthy Eating on a Budget in Zambia</h2>
-
-<p>
-Nutritious meals do not have to be expensive. Learn practical strategies
-for planning balanced meals using affordable local foods while maintaining
-good health and wellbeing.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="blog-section">
-
-<div class="blog-grid">
-
-<!-- ARTICLE 1 -->
-
-<div class="blog-card">
-
-<img src="healthy-eating.jpg">
-
-<div class="blog-content">
-
-<span class="category">Nutrition</span>
-
-<h3>Healthy Eating on a Budget</h3>
-
-<p>
-Simple strategies to eat healthier without overspending.
-</p>
-
-<button class="read-btn" onclick="toggleArticle(this)">
-Read Article
-</button>
-
-<div class="full-article">
-
-<p>
-Many people believe healthy eating is expensive.
-However, affordable local foods such as beans,
-groundnuts, sweet potatoes, eggs and vegetables
-can provide excellent nutrition.
-</p>
-
-<p>
-Meal planning, buying seasonal produce,
-and reducing food waste are effective ways
-to save money while improving diet quality.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ARTICLE 2 -->
-
-<div class="blog-card">
-
-<img src="research.jpg">
-
-<div class="blog-content">
-
-<span class="category">Research</span>
-
-<h3>Research Tips for Students</h3>
-
-<p>
-Improve the quality and efficiency of your academic work.
-</p>
-
-<button class="read-btn" onclick="toggleArticle(this)">
-Read Article
-</button>
-
-<div class="full-article">
-
-<p>
-Effective research begins with a clear question.
-Use reputable sources, organize references early,
-and maintain accurate notes throughout your project.
-</p>
-
-<p>
-Good research skills improve academic performance
-and help build critical thinking abilities.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ARTICLE 3 -->
-
-<div class="blog-card">
-
-<img src="data-analysis.jpg">
-
-<div class="blog-content">
-
-<span class="category">Data Analysis</span>
-
-<h3>Why Data Matters</h3>
-
-<p>
-Discover how data can support better decision-making.
-</p>
-
-<button class="read-btn" onclick="toggleArticle(this)">
-Read Article
-</button>
-
-<div class="full-article">
-
-<p>
-Organizations increasingly rely on data to guide
-strategic decisions. Proper analysis transforms
-raw information into actionable insights.
-</p>
-
-<p>
-Whether you're a student or business owner,
-understanding your data can improve outcomes.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="cta">
-
-<h2>Need Professional Support?</h2>
-
-<p>
-Whether you need a nutrition consultation,
-research assistance, or data analysis support,
-I'm here to help.
-</p>
-
-<a href="contact.html">
-Book a Consultation
-</a>
-
-</section>
-
-<script>
-
-function toggleArticle(button){
-
-const article =
-button.nextElementSibling;
-
-article.classList.toggle("active");
-
-if(article.classList.contains("active")){
-button.innerText="Hide Article";
-}else{
-button.innerText="Read Article";
-}
-
-}
-
-</script>
-
-</body>
-</html>    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.3s;
-}
-
-.blog-card:hover{
-    transform:translateY(-8px);
-}
-
-.blog-card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-}
-
-.blog-content{
-    padding:25px;
-}
-
-.blog-content h3{
-    color:#0f172a;
-    margin-bottom:10px;
-}
-
-.blog-content p{
-    color:#555;
-    line-height:1.7;
-}
-
-.read-btn{
-    display:inline-block;
-    margin-top:15px;
-    padding:10px 20px;
-    background:#c59d5f;
-    color:white;
-    text-decoration:none;
-    border-radius:30px;
-}
-
-</style>
-</head>
-
-<body>
-
-<section class="blog-header">
-    <h1>Health & Professional Insights</h1>
-    <p>Articles on Nutrition, Research, Data Analysis and Personal Development.</p>
-</section>
-
-<section class="blog-container">
-
-<div class="blog-card">
-    <img src="healthy-eating.jpg" alt="">
-    <div class="blog-content">
-        <h3>Healthy Eating on a Budget</h3>
-        <p>Simple strategies to maintain a nutritious diet without overspending.</p>
-        <a href="#" class="read-btn">Read More</a>
+<header class="site">
+  <div class="container nav">
+    <a class="brand" href="home.html">
+      <strong>NZALI PHIRI</strong>
+      <span>Nutrition • Digital Services</span>
+    </a>
+    <nav class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="health.html">Health Services</a>
+      <a href="digital.html">Digital Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div class="hero-copy">
+        <div class="kicker">Blog</div>
+        <h1 class="h1">Useful ideas, written simply.</h1>
+        <p>
+          A clean and professional space for nutrition insights, research support, data analysis tips, and practical guidance for students and professionals.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="contact.html">Book Consultation</a>
+          <a class="btn ghost" href="health.html">Health Services</a>
+        </div>
+      </div>
+
+      <div class="hero-photo">
+        <img src="hero-photo.jpg" alt="Nzali Phiri">
+        <div class="label">Blog hero image</div>
+      </div>
     </div>
-</div>
+  </section>
 
-<div class="blog-card">
-    <img src="hydration.jpg" alt="">
-    <div class="blog-content">
-        <h3>The Importance of Hydration</h3>
-        <p>Why water is essential for energy, concentration and overall health.</p>
-        <a href="#" class="read-btn">Read More</a>
+  <section class="section">
+    <div class="container">
+      <div class="kicker">Featured Article</div>
+      <h2 class="h2">Healthy Eating on a Budget in Zambia</h2>
+
+      <div class="featured" style="margin-top:22px;">
+        <div class="featured-inner">
+          <div class="featured-image">
+            <img src="healthy-eating.jpg" alt="Healthy eating on a budget">
+          </div>
+
+          <div class="featured-content">
+            <div class="tags">
+              <span class="tag">Nutrition</span>
+              <span class="tag">5 min read</span>
+            </div>
+
+            <h3 class="h3">Simple ways to eat well without overspending</h3>
+            <p>
+              Healthy eating can be practical and affordable. With the right planning, you can prepare balanced meals using local foods and simple habits.
+            </p>
+
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>
+                  Many people think healthy eating is expensive, but it does not have to be. Beans, eggs, groundnuts, sweet potatoes, vegetables, and seasonal fruit can all support a balanced diet.
+                </p>
+                <p>
+                  Planning meals in advance, shopping seasonally, and reducing food waste can make nutrition more manageable and sustainable.
+                </p>
+                <p>
+                  The aim is to build habits that are realistic, not complicated.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </section>
 
-<div class="blog-card">
-    <img src="research.jpg" alt="">
-    <div class="blog-content">
-        <h3>Research Tips for Students</h3>
-        <p>Practical advice to improve the quality and efficiency of academic research.</p>
-        <a href="#" class="read-btn">Read More</a>
+  <section class="section" style="background:rgba(255,255,255,.015); border-top:1px solid rgba(255,255,255,.05); border-bottom:1px solid rgba(255,255,255,.05);">
+    <div class="container">
+      <div class="kicker">Latest Articles</div>
+      <h2 class="h2">More to explore</h2>
+
+      <div class="post-grid">
+        <article class="post">
+          <img src="research.jpg" alt="Research support">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Research</span>
+              <span class="tag">4 min read</span>
+            </div>
+            <h3 class="h3">How to approach academic research with confidence</h3>
+            <p>Start with clarity, use reliable sources, and stay organized from the beginning.</p>
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>
+                  Effective research begins with a clear question. Good note-taking and structured references save time later.
+                </p>
+                <p>
+                  Strong research is built on patience, attention to detail, and a methodical approach.
+                </p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="post">
+          <img src="data-analysis.jpg" alt="Data analysis">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Data Analysis</span>
+              <span class="tag">4 min read</span>
+            </div>
+            <h3 class="h3">Why data matters in business decision-making</h3>
+            <p>Data helps businesses understand patterns and make better decisions.</p>
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>
+                  Even simple data analysis can reveal useful insights that improve planning, marketing, and operations.
+                </p>
+                <p>
+                  Turning raw information into clear insight supports smarter choices.
+                </p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="post">
+          <img src="nutrition.jpg" alt="Nutrition tips">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Wellness</span>
+              <span class="tag">3 min read</span>
+            </div>
+            <h3 class="h3">Three habits that support a healthier routine</h3>
+            <p>Small habits can make a big difference over time.</p>
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>
+                  A regular meal pattern, enough water, and sufficient rest are simple but powerful starting points.
+                </p>
+                <p>
+                  Consistency often matters more than intensity.
+                </p>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
     </div>
-</div>
+  </section>
 
-</section>
+  <section class="section">
+    <div class="container">
+      <div class="cta">
+        <div class="kicker">Need Support?</div>
+        <h2 class="h2">Book nutrition help or request academic assistance</h2>
+        <p>
+          If you need support with nutrition consultation, assignment research, or data analysis, I would be glad to help.
+        </p>
+        <div class="btns" style="justify-content:center;">
+          <a class="btn primary" href="mailto:inquiry@nzaliphiri.com">Send Email</a>
+          <a class="btn ghost" href="https://wa.me/260762634187">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="kicker">Nzali Phiri</div>
+      <p class="muted">Nutrition services, digital support, and helpful content for students and professionals.</p>
+    </div>
+    <div>
+      <div class="kicker">Pages</div>
+      <p><a href="home.html">Home</a><br><a href="health.html">Health Services</a><br><a href="digital.html">Digital Services</a><br><a href="contact.html">Contact</a></p>
+    </div>
+    <div>
+      <div class="kicker">Contact</div>
+      <p><a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br><a href="https://wa.me/260762634187">+260 762 634 187</a></p>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
