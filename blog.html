@@ -25,41 +25,23 @@
       --shadow:0 16px 40px rgba(0,0,0,.08);
     }
 
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
     body{
       font-family:'Inter', sans-serif;
       background:var(--bg);
       color:#f5f1eb;
       line-height:1.7;
     }
-
-    img{
-      max-width:100%;
-      display:block;
-    }
-
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
+    img{ max-width:100%; display:block; }
+    a{ color:inherit; text-decoration:none; }
 
     .container{
       width:min(1160px, calc(100% - 32px));
       margin:auto;
     }
 
-    .section{
-      padding:80px 0;
-    }
+    .section{ padding:80px 0; }
 
     .kicker{
       text-transform:uppercase;
@@ -69,30 +51,18 @@
       margin-bottom:14px;
     }
 
-    .h1,
-    .h2,
-    .h3{
+    .h1, .h2, .h3{
       font-family:'Cormorant Garamond', serif;
       line-height:.95;
       font-weight:600;
       margin:0;
     }
 
-    .h1{
-      font-size:clamp(3rem, 8vw, 5.8rem);
-    }
+    .h1{ font-size:clamp(3rem, 8vw, 5.8rem); }
+    .h2{ font-size:clamp(2rem, 5vw, 3.6rem); }
+    .h3{ font-size:clamp(1.35rem, 2.4vw, 1.8rem); }
 
-    .h2{
-      font-size:clamp(2rem, 5vw, 3.6rem);
-    }
-
-    .h3{
-      font-size:clamp(1.35rem, 2.4vw, 1.8rem);
-    }
-
-    .muted{
-      color:var(--muted);
-    }
+    .muted{ color:var(--muted); }
 
     .btns{
       display:flex;
@@ -110,11 +80,10 @@
       border:1px solid transparent;
       font-weight:700;
       transition:.25s ease;
+      cursor:pointer;
     }
 
-    .btn:hover{
-      transform:translateY(-3px);
-    }
+    .btn:hover{ transform:translateY(-3px); }
 
     .btn.primary{
       background:linear-gradient(135deg, var(--gold), var(--gold-2));
@@ -127,14 +96,15 @@
       color:#f5f1eb;
     }
 
-    .btn.ghost:hover{
-      background:rgba(214,194,168,.08);
-    }
+    .btn.ghost:hover{ background:rgba(214,194,168,.08); }
 
     header.site{
       background:rgba(17,17,17,.92);
       backdrop-filter:blur(12px);
       border-bottom:1px solid rgba(255,255,255,.05);
+      position:sticky;
+      top:0;
+      z-index:20;
     }
 
     .nav{
@@ -173,13 +143,9 @@
       padding:8px 4px;
     }
 
-    .nav-links a:hover{
-      color:#f5f1eb;
-    }
+    .nav-links a:hover{ color:#f5f1eb; }
 
-    .hero{
-      padding:54px 0 20px;
-    }
+    .hero{ padding:54px 0 20px; }
 
     .hero-wrap{
       display:grid;
@@ -223,6 +189,38 @@
       font-size:.9rem;
     }
 
+    .search-wrap{
+      background:#fff;
+      color:var(--text);
+      border-radius:28px;
+      padding:24px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      margin-top:28px;
+    }
+
+    .search-row{
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:12px;
+      align-items:center;
+    }
+
+    .search-row input{
+      width:100%;
+      padding:15px 18px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.12);
+      outline:none;
+      font:inherit;
+      background:#fff;
+    }
+
+    .search-row input:focus{
+      border-color:var(--gold-2);
+      box-shadow:0 0 0 4px rgba(200,169,126,.15);
+    }
+
     .featured{
       background:#fff;
       color:var(--text);
@@ -237,9 +235,7 @@
       grid-template-columns:1fr 1fr;
     }
 
-    .featured-image{
-      min-height:380px;
-    }
+    .featured-image{ min-height:380px; }
 
     .featured-image img{
       width:100%;
@@ -320,17 +316,19 @@
       color:var(--navy);
     }
 
-    summary::-webkit-details-marker{
-      display:none;
-    }
+    summary::-webkit-details-marker{ display:none; }
 
     .article{
       margin-top:12px;
       color:var(--muted);
     }
 
-    .article p{
-      margin-bottom:12px;
+    .article p{ margin-bottom:12px; }
+
+    .section-soft{
+      background:rgba(255,255,255,.015);
+      border-top:1px solid rgba(255,255,255,.05);
+      border-bottom:1px solid rgba(255,255,255,.05);
     }
 
     .cta{
@@ -361,12 +359,21 @@
       padding:46px 0;
     }
 
-    .footer a{
-      color:var(--muted);
+    .footer a{ color:var(--muted); }
+    .footer a:hover{ color:#f5f1eb; }
+
+    .article.hidden,
+    .post.hidden{
+      display:none;
     }
 
-    .footer a:hover{
-      color:#f5f1eb;
+    .empty-state{
+      display:none;
+      margin-top:18px;
+      color:#d4d4d4;
+      padding:18px;
+      border:1px dashed rgba(255,255,255,.12);
+      border-radius:18px;
     }
 
     @media (max-width: 960px){
@@ -377,32 +384,29 @@
         grid-template-columns:1fr;
       }
 
-      .nav-links{
-        display:none;
-      }
+      .nav-links{ display:none; }
 
       .hero-photo,
       .featured-image{
         min-height:300px;
       }
+
+      .search-row{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width: 640px){
-      .section{
-        padding:68px 0;
-      }
+      .section{ padding:68px 0; }
 
-      .btn{
-        width:100%;
-      }
+      .btn{ width:100%; }
 
-      .post img{
-        height:210px;
-      }
+      .post img{ height:210px; }
 
       .featured-content,
       .post-body,
-      .cta{
+      .cta,
+      .search-wrap{
         padding:20px;
       }
     }
@@ -436,8 +440,8 @@
           A clean and professional space for nutrition insights, research support, data analysis tips, and practical guidance for students and professionals.
         </p>
         <div class="btns">
-          <a class="btn primary" href="contact.html">Book Consultation</a>
-          <a class="btn ghost" href="health.html">Health Services</a>
+          <a class="btn primary" href="articles.html">More Articles</a>
+          <a class="btn ghost" href="archive.html">Archive</a>
         </div>
       </div>
 
@@ -449,80 +453,93 @@
   </section>
 
   <section class="section">
-  <section class="section">
-  <div class="container">
-    <div class="kicker">Featured Article</div>
-    <h2 class="h2">Healthy Eating on a Budget in Zambia</h2>
-
-    <div class="featured" style="margin-top:22px;">
-      <div class="featured-inner">
-        <div class="featured-image">
-          <img src="healthy-eating.jpg" alt="Healthy eating on a budget">
+    <div class="container">
+      <div class="search-wrap">
+        <div class="kicker">Search</div>
+        <div class="search-row">
+          <input type="text" id="searchInput" placeholder="Search articles by title, keyword, or topic..." aria-label="Search articles">
+          <button class="btn primary" type="button" id="clearSearch">Clear</button>
+          <a class="btn ghost" href="articles.html">View all</a>
         </div>
-
-        <div class="featured-content">
-          <div class="tags">
-            <span class="tag">Nutrition</span>
-            <span class="tag">3 min read</span>
-          </div>
-
-          <h3 class="h3">Simple Ways to Eat Well Without Overspending</h3>
-          <p>
-            Healthy eating does not have to be expensive. With a little planning and the right food choices, you can enjoy balanced meals while staying within your budget.
-          </p>
-
-          <details>
-            <summary>Read article</summary>
-
-            <div class="article">
-              <h4>Plan Before You Shop</h4>
-              <p>
-                Many people believe healthy eating is expensive, but research shows that nutritious diets can be affordable with good planning and smart food choices.
-              </p>
-              <p>
-                Creating a meal plan and shopping list helps reduce impulse purchases and food waste. Planning meals around ingredients you can use in multiple dishes can stretch your budget further.
-              </p>
-
-              <h4>Choose Local and Seasonal Foods</h4>
-              <p>
-                Locally grown and seasonal foods are often cheaper and just as nutritious. Staples such as beans, sweet potatoes, leafy greens, tomatoes, and seasonal fruits provide essential nutrients at a reasonable cost.
-              </p>
-
-              <h4>Include Affordable Protein Sources</h4>
-              <p>
-                Beans, lentils, peas, eggs, and groundnuts are nutritious sources of protein that often cost less than meat. Regularly including these foods can support a healthy diet while saving money.
-              </p>
-
-              <h4>Reduce Food Waste</h4>
-              <p>
-                Store food properly, use leftovers creatively, and cook only what you need. Reducing waste is one of the easiest ways to lower food expenses.
-              </p>
-
-              <h4>Cook More Meals at Home</h4>
-              <p>
-                Home-cooked meals are generally more affordable and can be healthier than takeaway foods because you control the ingredients and portion sizes.
-              </p>
-
-              <h4>The Bottom Line</h4>
-              <p>
-                Healthy eating does not have to break the bank. By planning meals, choosing local foods, reducing waste, and cooking at home, you can enjoy a nutritious diet while staying within your budget.
-              </p>
-            </div>
-
-          </details>
+        <div class="empty-state" id="emptyState">
+          No articles match your search yet.
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-  <section class="section" style="background:rgba(255,255,255,.015); border-top:1px solid rgba(255,255,255,.05); border-bottom:1px solid rgba(255,255,255,.05);">
+  <section class="section">
+    <div class="container">
+      <div class="kicker">Featured Article</div>
+      <h2 class="h2">Healthy Eating on a Budget in Zambia</h2>
+
+      <div class="featured" style="margin-top:22px;">
+        <div class="featured-inner">
+          <div class="featured-image">
+            <img src="healthy-eating.jpg" alt="Healthy eating on a budget">
+          </div>
+
+          <div class="featured-content">
+            <div class="tags">
+              <span class="tag">Nutrition</span>
+              <span class="tag">3 min read</span>
+            </div>
+
+            <h3 class="h3">Simple Ways to Eat Well Without Overspending</h3>
+            <p>
+              Healthy eating does not have to be expensive. With a little planning and the right food choices, you can enjoy balanced meals while staying within your budget.
+            </p>
+
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <h4>Plan Before You Shop</h4>
+                <p>
+                  Many people believe healthy eating is expensive, but research shows that nutritious diets can be affordable with good planning and smart food choices.
+                </p>
+                <p>
+                  Creating a meal plan and shopping list helps reduce impulse purchases and food waste. Planning meals around ingredients you can use in multiple dishes can stretch your budget further.
+                </p>
+
+                <h4>Choose Local and Seasonal Foods</h4>
+                <p>
+                  Locally grown and seasonal foods are often cheaper and just as nutritious. Staples such as beans, sweet potatoes, leafy greens, tomatoes, and seasonal fruits provide essential nutrients at a reasonable cost.
+                </p>
+
+                <h4>Include Affordable Protein Sources</h4>
+                <p>
+                  Beans, lentils, peas, eggs, and groundnuts are nutritious sources of protein that often cost less than meat. Regularly including these foods can support a healthy diet while saving money.
+                </p>
+
+                <h4>Reduce Food Waste</h4>
+                <p>
+                  Store food properly, use leftovers creatively, and cook only what you need. Reducing waste is one of the easiest ways to lower food expenses.
+                </p>
+
+                <h4>Cook More Meals at Home</h4>
+                <p>
+                  Home-cooked meals are generally more affordable and can be healthier than takeaway foods because you control the ingredients and portion sizes.
+                </p>
+
+                <h4>The Bottom Line</h4>
+                <p>
+                  Healthy eating does not have to break the bank. By planning meals, choosing local foods, reducing waste, and cooking at home, you can enjoy a nutritious diet while staying within your budget.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
     <div class="container">
       <div class="kicker">Latest Articles</div>
       <h2 class="h2">More to explore</h2>
 
-      <div class="post-grid">
-        <article class="post">
+      <div class="post-grid" id="articleGrid">
+        <article class="post article-card" data-title="how to approach academic research with confidence research reliable sources note taking references">
           <img src="research.jpg" alt="Research support">
           <div class="post-body">
             <div class="tags">
@@ -545,7 +562,7 @@
           </div>
         </article>
 
-        <article class="post">
+        <article class="post article-card" data-title="why data matters in business decision making data analysis business decisions">
           <img src="data-analysis.jpg" alt="Data analysis">
           <div class="post-body">
             <div class="tags">
@@ -568,7 +585,7 @@
           </div>
         </article>
 
-        <article class="post">
+        <article class="post article-card" data-title="three habits that support a healthier routine wellness nutrition habits hydration rest">
           <img src="nutrition.jpg" alt="Nutrition tips">
           <div class="post-body">
             <div class="tags">
@@ -605,6 +622,7 @@
         <div class="btns" style="justify-content:center;">
           <a class="btn primary" href="mailto:inquiry@nzaliphiri.com">Send Email</a>
           <a class="btn ghost" href="https://wa.me/260762634187">WhatsApp</a>
+          <a class="btn ghost" href="articles.html">More Articles</a>
         </div>
       </div>
     </div>
@@ -619,14 +637,53 @@
     </div>
     <div>
       <div class="kicker">Pages</div>
-      <p><a href="home.html">Home</a><br><a href="health.html">Health Services</a><br><a href="digital.html">Digital Services</a><br><a href="contact.html">Contact</a></p>
+      <p>
+        <a href="home.html">Home</a><br>
+        <a href="health.html">Health Services</a><br>
+        <a href="digital.html">Digital Services</a><br>
+        <a href="contact.html">Contact</a><br>
+        <a href="articles.html">Articles</a><br>
+        <a href="archive.html">Archive</a>
+      </p>
     </div>
     <div>
       <div class="kicker">Contact</div>
-      <p><a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br><a href="https://wa.me/260762634187">+260 762 634 187</a></p>
+      <p>
+        <a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br>
+        <a href="https://wa.me/260762634187">+260 762 634 187</a>
+      </p>
     </div>
   </div>
 </footer>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const clearSearch = document.getElementById('clearSearch');
+  const cards = document.querySelectorAll('.article-card');
+  const emptyState = document.getElementById('emptyState');
+
+  function filterArticles() {
+    const term = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const text = (card.getAttribute('data-title') || '') + ' ' + card.innerText.toLowerCase();
+      const match = text.includes(term);
+      card.classList.toggle('hidden', !match);
+      if (match) visibleCount++;
+    });
+
+    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+  }
+
+  searchInput.addEventListener('input', filterArticles);
+
+  clearSearch.addEventListener('click', () => {
+    searchInput.value = '';
+    filterArticles();
+    searchInput.focus();
+  });
+</script>
 
 </body>
 </html>
