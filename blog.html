@@ -23,13 +23,16 @@
       --muted:#64748b;
       --line:rgba(15,23,42,.08);
       --shadow:0 16px 40px rgba(0,0,0,.08);
+      --shadow-strong:0 22px 60px rgba(0,0,0,.12);
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
     html{ scroll-behavior:smooth; }
     body{
       font-family:'Inter', sans-serif;
-      background:var(--bg);
+      background:
+        radial-gradient(circle at top, rgba(214,194,168,.08), transparent 28%),
+        var(--bg);
       color:#f5f1eb;
       line-height:1.7;
     }
@@ -81,9 +84,13 @@
       font-weight:700;
       transition:.25s ease;
       cursor:pointer;
+      white-space:nowrap;
     }
 
-    .btn:hover{ transform:translateY(-3px); }
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(0,0,0,.12);
+    }
 
     .btn.primary{
       background:linear-gradient(135deg, var(--gold), var(--gold-2));
@@ -141,6 +148,7 @@
     .nav-links a{
       color:var(--muted);
       padding:8px 4px;
+      transition:.2s ease;
     }
 
     .nav-links a:hover{ color:#f5f1eb; }
@@ -187,6 +195,7 @@
       background:rgba(17,17,17,.72);
       border:1px solid rgba(255,255,255,.08);
       font-size:.9rem;
+      backdrop-filter:blur(10px);
     }
 
     .search-wrap{
@@ -227,7 +236,7 @@
       border-radius:28px;
       overflow:hidden;
       border:1px solid var(--line);
-      box-shadow:var(--shadow);
+      box-shadow:var(--shadow-strong);
     }
 
     .featured-inner{
@@ -235,7 +244,10 @@
       grid-template-columns:1fr 1fr;
     }
 
-    .featured-image{ min-height:380px; }
+    .featured-image{
+      min-height:380px;
+      background:#eee;
+    }
 
     .featured-image img{
       width:100%;
@@ -244,7 +256,7 @@
     }
 
     .featured-content{
-      padding:30px;
+      padding:32px;
       background:var(--card);
     }
 
@@ -272,6 +284,51 @@
       margin-top:14px;
     }
 
+    .featured-content details{
+      margin-top:18px;
+      border-top:1px solid var(--line);
+      padding-top:16px;
+    }
+
+    .featured-content summary{
+      list-style:none;
+      cursor:pointer;
+      font-weight:700;
+      color:var(--navy);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .featured-content summary::-webkit-details-marker{ display:none; }
+
+    .article{
+      margin-top:14px;
+      color:var(--muted);
+    }
+
+    .article p{ margin-bottom:12px; }
+    .article h4{
+      margin:18px 0 8px;
+      color:var(--navy);
+      font-size:1.02rem;
+    }
+
+    .section-soft{
+      background:rgba(255,255,255,.015);
+      border-top:1px solid rgba(255,255,255,.05);
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+
+    .posts-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+
     .post-grid{
       display:grid;
       grid-template-columns:repeat(3, minmax(0, 1fr));
@@ -286,6 +343,15 @@
       overflow:hidden;
       border:1px solid var(--line);
       box-shadow:var(--shadow);
+      transition:.25s ease;
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+    }
+
+    .post:hover{
+      transform:translateY(-5px);
+      box-shadow:var(--shadow-strong);
     }
 
     .post img{
@@ -296,6 +362,9 @@
 
     .post-body{
       padding:22px;
+      display:flex;
+      flex-direction:column;
+      flex:1;
     }
 
     .post-body p{
@@ -303,36 +372,40 @@
       margin-top:10px;
     }
 
-    details{
-      margin-top:14px;
+    .post-body details{
+      margin-top:16px;
       border-top:1px solid var(--line);
       padding-top:14px;
     }
 
-    summary{
+    .post-body summary{
       list-style:none;
       cursor:pointer;
       font-weight:700;
       color:var(--navy);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
 
-    summary::-webkit-details-marker{ display:none; }
+    .post-body summary::-webkit-details-marker{ display:none; }
 
-    .article{
-      margin-top:12px;
+    .article-card.hidden{
+      display:none;
+    }
+
+    .empty-state{
+      display:none;
+      margin-top:18px;
       color:var(--muted);
-    }
-
-    .article p{ margin-bottom:12px; }
-
-    .section-soft{
-      background:rgba(255,255,255,.015);
-      border-top:1px solid rgba(255,255,255,.05);
-      border-bottom:1px solid rgba(255,255,255,.05);
+      padding:18px;
+      border:1px dashed rgba(15,23,42,.14);
+      border-radius:18px;
+      background:#fafafa;
     }
 
     .cta{
-      background:var(--navy);
+      background:linear-gradient(180deg, #122036, #0f172a);
       border-radius:28px;
       padding:40px;
       text-align:center;
@@ -362,20 +435,6 @@
     .footer a{ color:var(--muted); }
     .footer a:hover{ color:#f5f1eb; }
 
-    .article.hidden,
-    .post.hidden{
-      display:none;
-    }
-
-    .empty-state{
-      display:none;
-      margin-top:18px;
-      color:#d4d4d4;
-      padding:18px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:18px;
-    }
-
     @media (max-width: 960px){
       .hero-wrap,
       .featured-inner,
@@ -393,6 +452,10 @@
 
       .search-row{
         grid-template-columns:1fr;
+      }
+
+      .posts-head{
+        align-items:flex-start;
       }
     }
 
@@ -457,9 +520,14 @@
       <div class="search-wrap">
         <div class="kicker">Search</div>
         <div class="search-row">
-          <input type="text" id="searchInput" placeholder="Search articles by title, keyword, or topic..." aria-label="Search articles">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search articles by title, keyword, or topic..."
+            aria-label="Search articles"
+          >
           <button class="btn primary" type="button" id="clearSearch">Clear</button>
-          <a class="btn ghost" href="articles.html"> View Veiw</Articles
+          <a class="btn ghost" href="articles.html">View Articles</a>
         </div>
         <div class="empty-state" id="emptyState">
           No articles match your search yet.
@@ -535,8 +603,13 @@
 
   <section class="section section-soft">
     <div class="container">
-      <div class="kicker">Latest Articles</div>
-      <h2 class="h2">More to explore</h2>
+      <div class="posts-head">
+        <div>
+          <div class="kicker">Latest Articles</div>
+          <h2 class="h2">More to explore</h2>
+        </div>
+        <a class="btn ghost" href="archive.html">Browse Archive</a>
+      </div>
 
       <div class="post-grid" id="articleGrid">
         <article class="post article-card" data-title="how to approach academic research with confidence research reliable sources note taking references">
@@ -621,7 +694,7 @@
         </p>
         <div class="btns" style="justify-content:center;">
           <a class="btn primary" href="mailto:inquiry@nzaliphiri.com">Send Email</a>
-          <a class="btn ghost" href="https://wa.me/260762634187">WhatsApp</a>
+          <a class="btn ghost" href="https://wa.me/260762634187" target="_blank" rel="noopener">WhatsApp</a>
           <a class="btn ghost" href="articles.html">More Articles</a>
         </div>
       </div>
@@ -650,7 +723,7 @@
       <div class="kicker">Contact</div>
       <p>
         <a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br>
-        <a href="https://wa.me/260762634187">+260 762 634 187</a>
+        <a href="https://wa.me/260762634187" target="_blank" rel="noopener">+260 762 634 187</a>
       </p>
     </div>
   </div>
@@ -667,7 +740,7 @@
     let visibleCount = 0;
 
     cards.forEach(card => {
-      const text = (card.getAttribute('data-title') || '') + ' ' + card.innerText.toLowerCase();
+      const text = ((card.getAttribute('data-title') || '') + ' ' + card.innerText).toLowerCase();
       const match = text.includes(term);
       card.classList.toggle('hidden', !match);
       if (match) visibleCount++;
