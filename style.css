@@ -127,11 +127,12 @@ header.site{
   background: rgba(255, 255, 255, 0.06);
 }
 
-.social-links svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-  flex: 0 0 auto;
+.social-links a svg {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    max-width: 16px;
+    fill: #ffffff;
 }
 
 .social-links span {
