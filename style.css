@@ -161,8 +161,8 @@ header.site{
   mask-image: linear-gradient(
     to right,
     transparent,
-    white 10%,
-    white 90%,
+    white 0%,
+    white 0%,
     transparent
   );
 }
