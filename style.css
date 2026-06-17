@@ -152,7 +152,7 @@ header.site{
 }
 
 /* =========================
-   LOGO MARQUEE
+   LOGO MARQUEE (FINAL)
 ========================= */
 
 .marquee {
@@ -162,14 +162,16 @@ header.site{
   margin-top: 30px;
 }
 
+/* soft edge fade */
 .marquee::before,
 .marquee::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 80px;
+  width: 120px;
   height: 100%;
   z-index: 2;
+  pointer-events: none;
 }
 
 .marquee::before {
@@ -182,40 +184,47 @@ header.site{
   background: linear-gradient(to left, var(--bg), transparent);
 }
 
+/* scrolling track */
 .marquee-track {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 40px;
   width: max-content;
-  animation: marqueeScroll 25s linear infinite;
+
+  will-change: transform;
+  animation: marqueeScroll 20s linear infinite;
 }
 
+/* pause on hover */
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
 
+/* smooth infinite scroll */
 @keyframes marqueeScroll {
-  from {
+  0% {
     transform: translateX(0);
   }
-  to {
+  100% {
     transform: translateX(-50%);
   }
 }
 
+/* logo card */
 .logo-box {
-  min-width: 240px;
-  height: 120px;
+  flex: 0 0 auto;
+
+  width: clamp(160px, 18vw, 240px);
+  height: clamp(90px, 10vw, 120px);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 20px;
+  padding: 18px;
 
   border-radius: 20px;
   border: 1px solid var(--line);
-
   background: rgba(255,255,255,.02);
 
   transition: all .3s ease;
@@ -227,16 +236,19 @@ header.site{
   background: rgba(255,255,255,.04);
 }
 
+/* IMPORTANT: preserve original logo colours */
 .logo-box img {
   max-width: 180px;
   max-height: 70px;
+
   width: auto;
   height: auto;
   object-fit: contain;
 
-  /* Keep original logo colors */
-  filter: none;
-  opacity: 1;
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
 
   transition: transform .3s ease;
 }
@@ -245,20 +257,24 @@ header.site{
   transform: scale(1.05);
 }
 
-/* Mobile */
+/* =========================
+   RESPONSIVE FIXES
+========================= */
 
 @media (max-width: 768px) {
+  .marquee-track {
+    gap: 28px;
+    animation-duration: 16s;
+  }
+
   .logo-box {
-    min-width: 180px;
-    height: 100px;
+    width: 160px;
+    height: 90px;
+    padding: 14px;
   }
 
   .logo-box img {
-    max-width: 140px;
-    max-height: 55px;
-  }
-
-  .marquee-track {
-    animation-duration: 18s;
+    max-width: 120px;
+    max-height: 50px;
   }
 }
