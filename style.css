@@ -151,10 +151,6 @@ header.site{
   fill: currentColor !important;
 }
 
-/* =========================
-   MARQUEE FIX (FINAL)
-========================= */
-
 .marquee {
   width: 100%;
   overflow: hidden;
@@ -167,7 +163,7 @@ header.site{
   content: "";
   position: absolute;
   top: 0;
-  width: 120px;
+  width: 90px;
   height: 100%;
   z-index: 2;
   pointer-events: none;
@@ -183,62 +179,60 @@ header.site{
   background: linear-gradient(to left, var(--bg), transparent);
 }
 
-/* KEY FIX: prevent wrapping / stretching */
+/* CRITICAL FIX: no width tricks, pure flex loop */
 .marquee-track {
   display: flex;
   width: max-content;
   flex-wrap: nowrap;
+  gap: 40px;
+  animation: scrollLeft 18s linear infinite;
   will-change: transform;
-  animation: scroll 18s linear infinite;
 }
 
-/* each group stays fixed width */
+/* IMPORTANT: keep groups rigid */
 .marquee-group {
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
-  gap: 30px;
-  padding-right: 30px;
+  gap: 40px;
 }
 
-/* animation */
-@keyframes scroll {
+/* REAL LOOP (NO -50%) */
+@keyframes scrollLeft {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
-/* LOGO BOX FIX (no stretching EVER) */
+/* FIXED LOGO BOX (prevents laptop stretching issue) */
 .logo-box {
   flex: 0 0 auto;
-
-  width: 200px;
-  height: 110px;
+  width: 190px;
+  height: 100px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 18px;
-
-  border-radius: 20px;
+  padding: 16px;
+  border-radius: 18px;
   border: 1px solid var(--line);
   background: rgba(255,255,255,.02);
 }
 
-/* 🔥 FORCE COLOUR (final override) */
+/* 🔥 FORCE ORIGINAL COLOR (absolute override) */
 .logo-box img {
-  max-width: 160px;
-  max-height: 60px;
-
   width: auto;
   height: auto;
+  max-width: 150px;
+  max-height: 55px;
+
   object-fit: contain;
 
   filter: none !important;
+  -webkit-filter: none !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
 }
@@ -249,28 +243,19 @@ header.site{
   border-color: var(--gold);
 }
 
-/* =========================
-   RESPONSIVE FIX
-========================= */
-
+/* MOBILE FIX */
 @media (max-width: 768px) {
   .logo-box {
-    width: 150px;
-    height: 90px;
-    padding: 12px;
+    width: 140px;
+    height: 85px;
   }
 
   .logo-box img {
-    max-width: 120px;
-    max-height: 45px;
+    max-width: 110px;
   }
 
   .marquee-track {
     animation-duration: 14s;
-  }
-
-  .marquee-group {
-    gap: 18px;
-    padding-right: 18px;
+    gap: 25px;
   }
 }
