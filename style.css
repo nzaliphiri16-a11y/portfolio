@@ -150,3 +150,75 @@ header.site{
 
   fill: currentColor !important;
 }
+
+/* MARQUEE LOGOS */
+
+.marquee {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin-top: 30px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    white 10%,
+    white 90%,
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 24px;
+  animation: scrollLogos 20s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLogos {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-box {
+  min-width: 250px;
+  height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+
+  padding: 24px;
+
+  transition: all .3s ease;
+}
+
+.logo-box:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+}
+
+.logo-box img {
+  max-height: 70px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: .85;
+  transition: all .3s ease;
+}
+
+.logo-box:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
