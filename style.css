@@ -151,19 +151,23 @@ header.site{
   fill: currentColor !important;
 }
 
+/* =========================
+   MARQUEE
+========================= */
+
 .marquee {
   width: 100%;
   overflow: hidden;
   position: relative;
+  margin-top: 30px;
 }
 
-/* fade edges */
 .marquee::before,
 .marquee::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 90px;
+  width: 100px;
   height: 100%;
   z-index: 2;
   pointer-events: none;
@@ -179,83 +183,113 @@ header.site{
   background: linear-gradient(to left, var(--bg), transparent);
 }
 
-/* CRITICAL FIX: no width tricks, pure flex loop */
 .marquee-track {
   display: flex;
   width: max-content;
   flex-wrap: nowrap;
-  gap: 40px;
-  animation: scrollLeft 18s linear infinite;
+  align-items: center;
+  gap: 30px;
+  animation: marqueeScroll 22s linear infinite;
   will-change: transform;
 }
 
-/* IMPORTANT: keep groups rigid */
 .marquee-group {
   display: flex;
   flex-wrap: nowrap;
-  gap: 40px;
+  align-items: center;
+  gap: 30px;
+  flex: 0 0 auto;
 }
 
-/* REAL LOOP (NO -50%) */
-@keyframes scrollLeft {
-  0% {
+@keyframes marqueeScroll {
+  from {
     transform: translateX(0);
   }
-  100% {
-    transform: translateX(-100%);
+  to {
+    transform: translateX(-50%);
   }
 }
 
-/* FIXED LOGO BOX (prevents laptop stretching issue) */
 .logo-box {
   flex: 0 0 auto;
-  width: 190px;
-  height: 100px;
+  width: 200px;
+  height: 110px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 16px;
-  border-radius: 18px;
+  padding: 18px;
+  border-radius: 20px;
   border: 1px solid var(--line);
   background: rgba(255,255,255,.02);
+
+  transition: transform .3s ease, border-color .3s ease, background .3s ease;
 }
 
-/* 🔥 FORCE ORIGINAL COLOR (absolute override) */
+.logo-box:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  background: rgba(255,255,255,.04);
+}
+
 .logo-box img {
+  display: block;
   width: auto;
   height: auto;
   max-width: 150px;
   max-height: 55px;
-
   object-fit: contain;
 
   filter: none !important;
   -webkit-filter: none !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
+  transform: none !important;
 }
 
-/* hover */
-.logo-box:hover {
-  transform: translateY(-3px);
-  border-color: var(--gold);
-}
+/* Responsive */
+@media (max-width: 1024px) {
+  .marquee-track,
+  .marquee-group {
+    gap: 22px;
+  }
 
-/* MOBILE FIX */
-@media (max-width: 768px) {
   .logo-box {
-    width: 140px;
-    height: 85px;
+    width: 170px;
+    height: 96px;
+    padding: 14px;
+  }
+
+  .logo-box img {
+    max-width: 125px;
+    max-height: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .marquee::before,
+  .marquee::after {
+    width: 60px;
+  }
+
+  .marquee-track,
+  .marquee-group {
+    gap: 18px;
+  }
+
+  .marquee-track {
+    animation-duration: 16s;
+  }
+
+  .logo-box {
+    width: 145px;
+    height: 86px;
+    padding: 12px;
   }
 
   .logo-box img {
     max-width: 110px;
-  }
-
-  .marquee-track {
-    animation-duration: 14s;
-    gap: 25px;
+    max-height: 42px;
   }
 }
