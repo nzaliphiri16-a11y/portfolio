@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Articles | Nzali Phiri</title>
+  <title>Healthy Eating on a Budget in Zambia | Nzali Phiri</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg:#111111;
+      --bg-soft:#171717;
       --card:#ffffff;
+      --card-soft:#f8f7f4;
       --navy:#0f172a;
       --gold:#d6c2a8;
       --gold-2:#c8a97e;
@@ -21,12 +23,16 @@
       --muted:#64748b;
       --line:rgba(15,23,42,.08);
       --shadow:0 16px 40px rgba(0,0,0,.08);
+      --shadow-strong:0 22px 60px rgba(0,0,0,.12);
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
     body{
       font-family:'Inter', sans-serif;
-      background:var(--bg);
+      background:
+        radial-gradient(circle at top, rgba(214,194,168,.08), transparent 28%),
+        var(--bg);
       color:#f5f1eb;
       line-height:1.7;
     }
@@ -38,7 +44,7 @@
       margin:auto;
     }
 
-    .section{ padding:72px 0; }
+    .section{ padding:80px 0; }
 
     .kicker{
       text-transform:uppercase;
@@ -55,9 +61,11 @@
       margin:0;
     }
 
-    .h1{ font-size:clamp(2.6rem, 7vw, 5rem); }
-    .h2{ font-size:clamp(2rem, 5vw, 3.4rem); }
+    .h1{ font-size:clamp(3rem, 8vw, 5.8rem); }
+    .h2{ font-size:clamp(2rem, 5vw, 3.6rem); }
     .h3{ font-size:clamp(1.35rem, 2.4vw, 1.8rem); }
+
+    .muted{ color:var(--muted); }
 
     .btns{
       display:flex;
@@ -76,9 +84,13 @@
       font-weight:700;
       transition:.25s ease;
       cursor:pointer;
+      white-space:nowrap;
     }
 
-    .btn:hover{ transform:translateY(-3px); }
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(0,0,0,.12);
+    }
 
     .btn.primary{
       background:linear-gradient(135deg, var(--gold), var(--gold-2));
@@ -90,6 +102,8 @@
       border-color:rgba(214,194,168,.24);
       color:#f5f1eb;
     }
+
+    .btn.ghost:hover{ background:rgba(214,194,168,.08); }
 
     header.site{
       background:rgba(17,17,17,.92);
@@ -121,7 +135,7 @@
 
     .brand span{
       font-size:.8rem;
-      color:#aeb6c2;
+      color:var(--muted);
     }
 
     .nav-links{
@@ -132,74 +146,67 @@
     }
 
     .nav-links a{
-      color:#aeb6c2;
+      color:var(--muted);
       padding:8px 4px;
+      transition:.2s ease;
     }
 
     .nav-links a:hover{ color:#f5f1eb; }
 
-    .intro{
-      max-width:72ch;
-      color:#d4d4d4;
-      margin-top:16px;
+    .article-hero{
+      padding:54px 0 20px;
     }
 
-    .search-wrap{
-      background:#fff;
-      color:var(--text);
-      border-radius:28px;
-      padding:24px;
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      margin-top:28px;
-    }
-
-    .search-row{
+    .article-wrap{
       display:grid;
-      grid-template-columns:1fr auto auto;
-      gap:12px;
+      grid-template-columns:1.05fr .95fr;
+      gap:32px;
       align-items:center;
     }
 
-    .search-row input{
-      width:100%;
-      padding:15px 18px;
-      border-radius:999px;
-      border:1px solid rgba(15,23,42,.12);
-      outline:none;
-      font:inherit;
-      background:#fff;
+    .article-copy p{
+      max-width:62ch;
+      color:#d4d4d4;
+      margin-top:18px;
     }
 
-    .search-row input:focus{
-      border-color:var(--gold-2);
-      box-shadow:0 0 0 4px rgba(200,169,126,.15);
-    }
-
-    .post-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:22px;
-      margin-top:24px;
-    }
-
-    .post{
-      background:#fff;
-      color:var(--text);
-      border-radius:24px;
+    .article-photo{
+      min-height:460px;
+      border-radius:28px;
       overflow:hidden;
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.06);
+      background:
+        linear-gradient(135deg, rgba(214,194,168,.22), rgba(143,155,132,.18)),
+        #1b1b1b;
+      box-shadow:0 18px 50px rgba(0,0,0,.25);
+      position:relative;
     }
 
-    .post img{
+    .article-photo img{
       width:100%;
-      height:220px;
+      height:100%;
       object-fit:cover;
     }
 
-    .post-body{
-      padding:22px;
+    .article-photo .label{
+      position:absolute;
+      left:18px;
+      bottom:18px;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(17,17,17,.72);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.9rem;
+      backdrop-filter:blur(10px);
+    }
+
+    .content-card{
+      background:#fff;
+      color:var(--text);
+      border-radius:28px;
+      padding:32px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-strong);
     }
 
     .tags{
@@ -221,32 +228,22 @@
       font-weight:600;
     }
 
-    .post-body p{
+    .article-body{
       color:var(--muted);
-      margin-top:10px;
+      margin-top:18px;
     }
 
-    details{
-      margin-top:14px;
-      border-top:1px solid var(--line);
-      padding-top:14px;
-    }
-
-    summary{
-      list-style:none;
-      cursor:pointer;
-      font-weight:700;
+    .article-body p{ margin-bottom:14px; }
+    .article-body h4{
+      margin:22px 0 10px;
       color:var(--navy);
+      font-size:1.05rem;
     }
 
-    summary::-webkit-details-marker{ display:none; }
-
-    .article{
-      margin-top:12px;
+    .article-body ul{
+      margin:12px 0 16px 22px;
       color:var(--muted);
     }
-
-    .article p{ margin-bottom:12px; }
 
     .footer{
       border-top:1px solid rgba(255,255,255,.05);
@@ -261,36 +258,60 @@
       padding:46px 0;
     }
 
-    .footer a{ color:#aeb6c2; }
+    .footer a{ color:var(--muted); }
     .footer a:hover{ color:#f5f1eb; }
 
-    .article-card.hidden{ display:none; }
+    .footer-social{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
 
-    .empty-state{
-      display:none;
-      margin-top:18px;
-      color:#d4d4d4;
-      padding:18px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:18px;
+    .footer-social a{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      transition:.2s ease;
+    }
+
+    .footer-social a:hover{
+      transform:translateY(-2px);
+      background:rgba(214,194,168,.14);
+    }
+
+    .footer-social svg{
+      width:20px;
+      height:20px;
+      fill:#f5f1eb;
     }
 
     @media (max-width: 960px){
-      .nav-links{ display:none; }
-      .post-grid,
+      .article-wrap,
       .footer-grid{
         grid-template-columns:1fr;
       }
-      .search-row{
-        grid-template-columns:1fr;
+
+      .nav-links{ display:none; }
+
+      .article-photo{
+        min-height:300px;
       }
     }
 
     @media (max-width: 640px){
+      .section{ padding:68px 0; }
+
       .btn{ width:100%; }
-      .post img{ height:210px; }
-      .search-wrap{ padding:20px; }
-      .post-body{ padding:20px; }
+
+      .content-card{
+        padding:20px;
+      }
     }
   </style>
 </head>
@@ -298,112 +319,92 @@
 
 <header class="site">
   <div class="container nav">
-    <a class="brand" href="home.html">
+    <a class="brand" href="../home.html">
       <strong>NZALI PHIRI</strong>
       <span>Nutrition • Digital Services</span>
     </a>
     <nav class="nav-links">
-      <a href="home.html">Home</a>
-      <a href="health.html">Health Services</a>
-      <a href="digital.html">Digital Services</a>
-      <a href="contact.html">Contact</a>
-      <a href="blog.html">Blog</a>
+      <a href="../home.html">Home</a>
+      <a href="../health.html">Health Services</a>
+      <a href="../digital.html">Digital Services</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../blog.html">Blog</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <section class="section">
-    <div class="container">
-      <div class="kicker">Articles</div>
-      <h1 class="h1">All current articles</h1>
-      <p class="intro">
-        This page holds the full set of active articles on the site. You can search by topic, then open each article to read more.
-      </p>
+  <section class="article-hero">
+    <div class="container article-wrap">
+      <div class="article-copy">
+        <div class="kicker">Nutrition</div>
+        <h1 class="h1">Healthy Eating on a Budget in Zambia</h1>
+        <p>
+          A practical guide to eating well without overspending. This article focuses on planning, local foods, affordable protein sources, and reducing waste.
+        </p>
 
-      <div class="search-wrap">
-        <div class="kicker">Search</div>
-        <div class="search-row">
-          <input type="text" id="searchInput" placeholder="Search articles..." aria-label="Search articles">
-          <button class="btn primary" type="button" id="clearSearch">Clear</button>
-          <a class="btn ghost" href="archive.html">View Archive</a>
+        <div class="btns">
+          <a class="btn primary" href="../articles.html">Back to Archive</a>
+          <a class="btn ghost" href="../blog.html">Back to Blog</a>
         </div>
-        <div class="empty-state" id="emptyState">No articles match your search yet.</div>
       </div>
 
-      <div class="post-grid" id="articleGrid">
-        <article class="post article-card" data-title="healthy eating on a budget in zambia nutrition meal planning local foods">
-          <img src="healthy-eating.jpg" alt="Healthy eating on a budget">
-          <div class="post-body">
-            <div class="tags">
-              <span class="tag">Nutrition</span>
-              <span class="tag">3 min read</span>
-            </div>
-            <h3 class="h3">Healthy Eating on a Budget in Zambia</h3>
-            <p>Simple ways to eat well without overspending.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>Healthy eating does not have to be expensive. Planning meals, choosing local foods, and reducing waste can make nutritious eating more affordable.</p>
-              </div>
-            </details>
-          </div>
-        </article>
+      <div class="article-photo">
+        <img src="../healthy-eating.jpg" alt="Healthy eating on a budget">
+        <div class="label">3 min read</div>
+      </div>
+    </div>
+  </section>
 
-        <article class="post article-card" data-title="how to approach academic research with confidence research reliable sources note taking references">
-          <img src="research.jpg" alt="Research support">
-          <div class="post-body">
-            <div class="tags">
-              <span class="tag">Research</span>
-              <span class="tag">4 min read</span>
-            </div>
-            <h3 class="h3">How to approach academic research with confidence</h3>
-            <p>Start with clarity, use reliable sources, and stay organized from the beginning.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>Effective research begins with a clear question. Good note-taking and structured references save time later.</p>
-                <p>Strong research is built on patience, attention to detail, and a methodical approach.</p>
-              </div>
-            </details>
-          </div>
-        </article>
+  <section class="section">
+    <div class="container">
+      <div class="content-card">
+        <div class="tags">
+          <span class="tag">Nutrition</span>
+          <span class="tag">Budget</span>
+          <span class="tag">Meal planning</span>
+        </div>
 
-        <article class="post article-card" data-title="why data matters in business decision making data analysis business decisions">
-          <img src="data-analysis.jpg" alt="Data analysis">
-          <div class="post-body">
-            <div class="tags">
-              <span class="tag">Data Analysis</span>
-              <span class="tag">4 min read</span>
-            </div>
-            <h3 class="h3">Why data matters in business decision-making</h3>
-            <p>Data helps businesses understand patterns and make better decisions.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>Even simple data analysis can reveal useful insights that improve planning, marketing, and operations.</p>
-              </div>
-            </details>
-          </div>
-        </article>
+        <h2 class="h2">Simple ways to eat well without overspending</h2>
 
-        <article class="post article-card" data-title="three habits that support a healthier routine wellness nutrition habits hydration rest">
-          <img src="nutrition.jpg" alt="Nutrition tips">
-          <div class="post-body">
-            <div class="tags">
-              <span class="tag">Wellness</span>
-              <span class="tag">3 min read</span>
-            </div>
-            <h3 class="h3">Three habits that support a healthier routine</h3>
-            <p>Small habits can make a big difference over time.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>A regular meal pattern, enough water, and sufficient rest are simple but powerful starting points.</p>
-              </div>
-            </details>
-          </div>
-        </article>
+        <div class="article-body">
+          <p>
+            Healthy eating does not have to be expensive. With a little planning and the right food choices, you can enjoy balanced meals while staying within your budget.
+          </p>
+
+          <h4>Plan Before You Shop</h4>
+          <p>
+            Many people believe healthy eating is expensive, but research shows that nutritious diets can be affordable with good planning and smart food choices.
+          </p>
+          <p>
+            Creating a meal plan and shopping list helps reduce impulse purchases and food waste. Planning meals around ingredients you can use in multiple dishes can stretch your budget further.
+          </p>
+
+          <h4>Choose Local and Seasonal Foods</h4>
+          <p>
+            Locally grown and seasonal foods are often cheaper and just as nutritious. Staples such as beans, sweet potatoes, leafy greens, tomatoes, and seasonal fruits provide essential nutrients at a reasonable cost.
+          </p>
+
+          <h4>Include Affordable Protein Sources</h4>
+          <p>
+            Beans, lentils, peas, eggs, and groundnuts are nutritious sources of protein that often cost less than meat. Regularly including these foods can support a healthy diet while saving money.
+          </p>
+
+          <h4>Reduce Food Waste</h4>
+          <p>
+            Store food properly, use leftovers creatively, and cook only what you need. Reducing waste is one of the easiest ways to lower food expenses.
+          </p>
+
+          <h4>Cook More Meals at Home</h4>
+          <p>
+            Home-cooked meals are more affordable and can be healthier than takeaway foods because you control the ingredients and portion sizes.
+          </p>
+
+          <h4>The Bottom Line</h4>
+          <p>
+            Healthy eating does not have to break the bank. By planning meals, choosing local foods, reducing waste, and cooking at home, you can enjoy a nutritious diet while staying within your budget.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -412,57 +413,53 @@
 <footer class="footer">
   <div class="container footer-grid">
     <div>
-      <div class="kicker">Nzali Phiri</div>
-      <p class="muted">Nutrition services, digital support, and helpful content for students and professionals.</p>
+      <div class="kicker">Contact</div>
+      <h3 class="h3">Let's work together</h3>
+      <p class="muted">
+        Email: <a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br>
+        WhatsApp: <a href="https://wa.me/260762634187" target="_blank" rel="noopener">+260 762 634 187</a>
+      </p>
     </div>
+
     <div>
       <div class="kicker">Pages</div>
       <p>
-        <a href="home.html">Home</a><br>
-        <a href="health.html">Health Services</a><br>
-        <a href="digital.html">Digital Services</a><br>
-        <a href="blog.html">Blog</a><br>
-        <a href="archive.html">Archive</a>
+        <a href="../health.html">Health Services</a><br>
+        <a href="../digital.html">Digital Services</a><br>
+        <a href="../contact.html">Contact</a><br>
+        <a href="../blog.html">Blog</a><br>
+        <a href="../articles.html">Archive</a>
       </p>
     </div>
+
     <div>
-      <div class="kicker">Contact</div>
-      <p>
-        <a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br>
-        <a href="https://wa.me/260762634187">+260 762 634 187</a>
-      </p>
+      <div class="kicker">Follow Me</div>
+
+      <div class="footer-social">
+        <a href="https://facebook.com/yourpage" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13.5 22v-8h2.7l.4-3h-3.1V8.1c0-.9.2-1.5 1.6-1.5H17V3.8c-.4 0-1.7-.2-3.2-.2-3.1 0-5.2 1.9-5.2 5.3V11H5.2v3H8.6v8h4.9z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com/yourpage" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.2A4.8 4.8 0 1 1 7.2 12 4.8 4.8 0 0 1 12 7.2zm0 2A2.8 2.8 0 1 0 14.8 12 2.8 2.8 0 0 0 12 9.2zM17.4 6.2a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/nzaliphiri" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.5 8.5H3.7V21h2.8V8.5zM5.1 3A1.6 1.6 0 1 0 5.1 6.2 1.6 1.6 0 0 0 5.1 3zM20.3 21v-7c0-3.4-1.8-4.9-4.1-4.9-1.8 0-2.6 1-3 1.7V8.5h-2.8V21h2.8v-6.8c0-1.8.3-3.5 2.3-3.5s2 1.9 2 3.6V21h2.8z"/>
+          </svg>
+        </a>
+        <a href="https://wa.me/260762634187" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a10 10 0 0 0-8.7 15l-1.1 4 4.1-1a10 10 0 1 0 5.7-18zm5.8 14.1c-.2.6-1 1.1-1.5 1.2-.4.1-1 .2-1.6 0-.4-.1-.9-.2-1.6-.5-2.7-1.2-4.5-4-4.6-4.1-.1-.1-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.3.1.5 0 .7-.1.2-.2.4-.4.6l-.3.4c-.1.1-.2.2-.1.4.1.2.6 1.1 1.4 1.8 1 .9 1.9 1.2 2.1 1.3.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.7-.1l2.1 1c.3.1.4.3.4.5.1.2.1.7-.1 1.3z"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 </footer>
-
-<script>
-  const searchInput = document.getElementById('searchInput');
-  const clearSearch = document.getElementById('clearSearch');
-  const cards = document.querySelectorAll('.article-card');
-  const emptyState = document.getElementById('emptyState');
-
-  function filterArticles() {
-    const term = searchInput.value.trim().toLowerCase();
-    let visibleCount = 0;
-
-    cards.forEach(card => {
-      const text = (card.getAttribute('data-title') || '') + ' ' + card.innerText.toLowerCase();
-      const match = text.includes(term);
-      card.classList.toggle('hidden', !match);
-      if (match) visibleCount++;
-    });
-
-    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-  }
-
-  searchInput.addEventListener('input', filterArticles);
-
-  clearSearch.addEventListener('click', () => {
-    searchInput.value = '';
-    filterArticles();
-    searchInput.focus();
-  });
-</script>
 
 </body>
 </html>
