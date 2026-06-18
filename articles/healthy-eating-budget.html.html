@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articles | Nzali Phiri</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#111111;
+      --card:#ffffff;
+      --navy:#0f172a;
+      --gold:#d6c2a8;
+      --gold-2:#c8a97e;
+      --sage:#8f9b84;
+      --text:#1f2937;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.08);
+      --shadow:0 16px 40px rgba(0,0,0,.08);
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    body{
+      font-family:'Inter', sans-serif;
+      background:var(--bg);
+      color:#f5f1eb;
+      line-height:1.7;
+    }
+    img{ max-width:100%; display:block; }
+    a{ color:inherit; text-decoration:none; }
+
+    .container{
+      width:min(1160px, calc(100% - 32px));
+      margin:auto;
+    }
+
+    .section{ padding:72px 0; }
+
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.24em;
+      color:var(--sage);
+      font-size:.78rem;
+      margin-bottom:14px;
+    }
+
+    .h1, .h2, .h3{
+      font-family:'Cormorant Garamond', serif;
+      line-height:.95;
+      font-weight:600;
+      margin:0;
+    }
+
+    .h1{ font-size:clamp(2.6rem, 7vw, 5rem); }
+    .h2{ font-size:clamp(2rem, 5vw, 3.4rem); }
+    .h3{ font-size:clamp(1.35rem, 2.4vw, 1.8rem); }
+
+    .btns{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:700;
+      transition:.25s ease;
+      cursor:pointer;
+    }
+
+    .btn:hover{ transform:translateY(-3px); }
+
+    .btn.primary{
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#111;
+    }
+
+    .btn.ghost{
+      background:rgba(255,255,255,.03);
+      border-color:rgba(214,194,168,.24);
+      color:#f5f1eb;
+    }
+
+    header.site{
+      background:rgba(17,17,17,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.05);
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      min-height:74px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .brand strong{
+      letter-spacing:.24em;
+      font-size:.9rem;
+    }
+
+    .brand span{
+      font-size:.8rem;
+      color:#aeb6c2;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#aeb6c2;
+      padding:8px 4px;
+    }
+
+    .nav-links a:hover{ color:#f5f1eb; }
+
+    .intro{
+      max-width:72ch;
+      color:#d4d4d4;
+      margin-top:16px;
+    }
+
+    .search-wrap{
+      background:#fff;
+      color:var(--text);
+      border-radius:28px;
+      padding:24px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      margin-top:28px;
+    }
+
+    .search-row{
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:12px;
+      align-items:center;
+    }
+
+    .search-row input{
+      width:100%;
+      padding:15px 18px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.12);
+      outline:none;
+      font:inherit;
+      background:#fff;
+    }
+
+    .search-row input:focus{
+      border-color:var(--gold-2);
+      box-shadow:0 0 0 4px rgba(200,169,126,.15);
+    }
+
+    .post-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:22px;
+      margin-top:24px;
+    }
+
+    .post{
+      background:#fff;
+      color:var(--text);
+      border-radius:24px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+    }
+
+    .post img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+
+    .post-body{
+      padding:22px;
+    }
+
+    .tags{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(214,194,168,.12);
+      border:1px solid rgba(214,194,168,.18);
+      color:#7a644d;
+      font-size:.82rem;
+      font-weight:600;
+    }
+
+    .post-body p{
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    details{
+      margin-top:14px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+
+    summary{
+      list-style:none;
+      cursor:pointer;
+      font-weight:700;
+      color:var(--navy);
+    }
+
+    summary::-webkit-details-marker{ display:none; }
+
+    .article{
+      margin-top:12px;
+      color:var(--muted);
+    }
+
+    .article p{ margin-bottom:12px; }
+
+    .footer{
+      border-top:1px solid rgba(255,255,255,.05);
+      background:#0b0b0b;
+      margin-top:80px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr;
+      gap:24px;
+      padding:46px 0;
+    }
+
+    .footer a{ color:#aeb6c2; }
+    .footer a:hover{ color:#f5f1eb; }
+
+    .article-card.hidden{ display:none; }
+
+    .empty-state{
+      display:none;
+      margin-top:18px;
+      color:#d4d4d4;
+      padding:18px;
+      border:1px dashed rgba(255,255,255,.12);
+      border-radius:18px;
+    }
+
+    @media (max-width: 960px){
+      .nav-links{ display:none; }
+      .post-grid,
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+      .search-row{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 640px){
+      .btn{ width:100%; }
+      .post img{ height:210px; }
+      .search-wrap{ padding:20px; }
+      .post-body{ padding:20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="brand" href="home.html">
+      <strong>NZALI PHIRI</strong>
+      <span>Nutrition • Digital Services</span>
+    </a>
+    <nav class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="health.html">Health Services</a>
+      <a href="digital.html">Digital Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="kicker">Articles</div>
+      <h1 class="h1">All current articles</h1>
+      <p class="intro">
+        This page holds the full set of active articles on the site. You can search by topic, then open each article to read more.
+      </p>
+
+      <div class="search-wrap">
+        <div class="kicker">Search</div>
+        <div class="search-row">
+          <input type="text" id="searchInput" placeholder="Search articles..." aria-label="Search articles">
+          <button class="btn primary" type="button" id="clearSearch">Clear</button>
+          <a class="btn ghost" href="archive.html">View Archive</a>
+        </div>
+        <div class="empty-state" id="emptyState">No articles match your search yet.</div>
+      </div>
+
+      <div class="post-grid" id="articleGrid">
+        <article class="post article-card" data-title="healthy eating on a budget in zambia nutrition meal planning local foods">
+          <img src="healthy-eating.jpg" alt="Healthy eating on a budget">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Nutrition</span>
+              <span class="tag">3 min read</span>
+            </div>
+            <h3 class="h3">Healthy Eating on a Budget in Zambia</h3>
+            <p>Simple ways to eat well without overspending.</p>
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>Healthy eating does not have to be expensive. Planning meals, choosing local foods, and reducing waste can make nutritious eating more affordable.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="post article-card" data-title="how to approach academic research with confidence research reliable sources note taking references">
+          <img src="research.jpg" alt="Research support">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Research</span>
+              <span class="tag">4 min read</span>
+            </div>
+            <h3 class="h3">How to approach academic research with confidence</h3>
+            <p>Start with clarity, use reliable sources, and stay organized from the beginning.</p>
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>Effective research begins with a clear question. Good note-taking and structured references save time later.</p>
+                <p>Strong research is built on patience, attention to detail, and a methodical approach.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="post article-card" data-title="why data matters in business decision making data analysis business decisions">
+          <img src="data-analysis.jpg" alt="Data analysis">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Data Analysis</span>
+              <span class="tag">4 min read</span>
+            </div>
+            <h3 class="h3">Why data matters in business decision-making</h3>
+            <p>Data helps businesses understand patterns and make better decisions.</p>
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>Even simple data analysis can reveal useful insights that improve planning, marketing, and operations.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="post article-card" data-title="three habits that support a healthier routine wellness nutrition habits hydration rest">
+          <img src="nutrition.jpg" alt="Nutrition tips">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Wellness</span>
+              <span class="tag">3 min read</span>
+            </div>
+            <h3 class="h3">Three habits that support a healthier routine</h3>
+            <p>Small habits can make a big difference over time.</p>
+            <details>
+              <summary>Read article</summary>
+              <div class="article">
+                <p>A regular meal pattern, enough water, and sufficient rest are simple but powerful starting points.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="kicker">Nzali Phiri</div>
+      <p class="muted">Nutrition services, digital support, and helpful content for students and professionals.</p>
+    </div>
+    <div>
+      <div class="kicker">Pages</div>
+      <p>
+        <a href="home.html">Home</a><br>
+        <a href="health.html">Health Services</a><br>
+        <a href="digital.html">Digital Services</a><br>
+        <a href="blog.html">Blog</a><br>
+        <a href="archive.html">Archive</a>
+      </p>
+    </div>
+    <div>
+      <div class="kicker">Contact</div>
+      <p>
+        <a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br>
+        <a href="https://wa.me/260762634187">+260 762 634 187</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const clearSearch = document.getElementById('clearSearch');
+  const cards = document.querySelectorAll('.article-card');
+  const emptyState = document.getElementById('emptyState');
+
+  function filterArticles() {
+    const term = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const text = (card.getAttribute('data-title') || '') + ' ' + card.innerText.toLowerCase();
+      const match = text.includes(term);
+      card.classList.toggle('hidden', !match);
+      if (match) visibleCount++;
+    });
+
+    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+  }
+
+  searchInput.addEventListener('input', filterArticles);
+
+  clearSearch.addEventListener('click', () => {
+    searchInput.value = '';
+    filterArticles();
+    searchInput.focus();
+  });
+</script>
+
+</body>
+</html>
