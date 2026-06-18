@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Articles . Nzali Phiri</title>
+  <title>Articles | Nzali Phiri</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,9 @@
   <style>
     :root{
       --bg:#111111;
+      --bg-soft:#171717;
       --card:#ffffff;
+      --card-soft:#f8f7f4;
       --navy:#0f172a;
       --gold:#d6c2a8;
       --gold-2:#c8a97e;
@@ -21,12 +23,16 @@
       --muted:#64748b;
       --line:rgba(15,23,42,.08);
       --shadow:0 16px 40px rgba(0,0,0,.08);
+      --shadow-strong:0 22px 60px rgba(0,0,0,.12);
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
     body{
       font-family:'Inter', sans-serif;
-      background:var(--bg);
+      background:
+        radial-gradient(circle at top, rgba(214,194,168,.08), transparent 28%),
+        var(--bg);
       color:#f5f1eb;
       line-height:1.7;
     }
@@ -38,7 +44,7 @@
       margin:auto;
     }
 
-    .section{ padding:72px 0; }
+    .section{ padding:80px 0; }
 
     .kicker{
       text-transform:uppercase;
@@ -55,9 +61,11 @@
       margin:0;
     }
 
-    .h1{ font-size:clamp(2.6rem, 7vw, 5rem); }
-    .h2{ font-size:clamp(2rem, 5vw, 3.4rem); }
+    .h1{ font-size:clamp(3rem, 8vw, 5.8rem); }
+    .h2{ font-size:clamp(2rem, 5vw, 3.6rem); }
     .h3{ font-size:clamp(1.35rem, 2.4vw, 1.8rem); }
+
+    .muted{ color:var(--muted); }
 
     .btns{
       display:flex;
@@ -76,9 +84,13 @@
       font-weight:700;
       transition:.25s ease;
       cursor:pointer;
+      white-space:nowrap;
     }
 
-    .btn:hover{ transform:translateY(-3px); }
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(0,0,0,.12);
+    }
 
     .btn.primary{
       background:linear-gradient(135deg, var(--gold), var(--gold-2));
@@ -90,6 +102,8 @@
       border-color:rgba(214,194,168,.24);
       color:#f5f1eb;
     }
+
+    .btn.ghost:hover{ background:rgba(214,194,168,.08); }
 
     header.site{
       background:rgba(17,17,17,.92);
@@ -134,6 +148,7 @@
     .nav-links a{
       color:#aeb6c2;
       padding:8px 4px;
+      transition:.2s ease;
     }
 
     .nav-links a:hover{ color:#f5f1eb; }
@@ -176,6 +191,16 @@
       box-shadow:0 0 0 4px rgba(200,169,126,.15);
     }
 
+    .results-info{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:14px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
     .post-grid{
       display:grid;
       grid-template-columns:repeat(3, minmax(0, 1fr));
@@ -190,6 +215,15 @@
       overflow:hidden;
       border:1px solid var(--line);
       box-shadow:var(--shadow);
+      transition:.25s ease;
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+    }
+
+    .post:hover{
+      transform:translateY(-5px);
+      box-shadow:var(--shadow-strong);
     }
 
     .post img{
@@ -200,6 +234,9 @@
 
     .post-body{
       padding:22px;
+      display:flex;
+      flex-direction:column;
+      flex:1;
     }
 
     .tags{
@@ -226,27 +263,31 @@
       margin-top:10px;
     }
 
-    details{
-      margin-top:14px;
-      border-top:1px solid var(--line);
-      padding-top:14px;
-    }
-
-    summary{
-      list-style:none;
-      cursor:pointer;
+    .read-link{
+      margin-top:auto;
+      padding-top:18px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       font-weight:700;
       color:var(--navy);
     }
 
-    summary::-webkit-details-marker{ display:none; }
-
-    .article{
-      margin-top:12px;
-      color:var(--muted);
+    .read-link:hover{
+      text-decoration:underline;
     }
 
-    .article p{ margin-bottom:12px; }
+    .article-card.hidden{ display:none; }
+
+    .empty-state{
+      display:none;
+      margin-top:18px;
+      color:#d4d4d4;
+      padding:18px;
+      border:1px dashed rgba(255,255,255,.12);
+      border-radius:18px;
+      background:rgba(255,255,255,.02);
+    }
 
     .footer{
       border-top:1px solid rgba(255,255,255,.05);
@@ -263,17 +304,6 @@
 
     .footer a{ color:#aeb6c2; }
     .footer a:hover{ color:#f5f1eb; }
-
-    .article-card.hidden{ display:none; }
-
-    .empty-state{
-      display:none;
-      margin-top:18px;
-      color:#d4d4d4;
-      padding:18px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:18px;
-    }
 
     @media (max-width: 960px){
       .nav-links{ display:none; }
@@ -318,7 +348,7 @@
       <div class="kicker">Articles</div>
       <h1 class="h1">All current articles</h1>
       <p class="intro">
-        This page holds the full set of active articles on the site. You can search by topic, then open each article to read more.
+        Search by title, topic, or keyword, then open the article page from your <strong>/articles/</strong> folder.
       </p>
 
       <div class="search-wrap">
@@ -326,13 +356,17 @@
         <div class="search-row">
           <input type="text" id="searchInput" placeholder="Search articles..." aria-label="Search articles">
           <button class="btn primary" type="button" id="clearSearch">Clear</button>
-          <a class="btn ghost" href="archive.html">View Archive</a>
+          <a class="btn ghost" href="articles.html">Reset</a>
+        </div>
+        <div class="results-info">
+          <span id="resultsCount">4 articles</span>
+          <span>Click any card to open the article</span>
         </div>
         <div class="empty-state" id="emptyState">No articles match your search yet.</div>
       </div>
 
       <div class="post-grid" id="articleGrid">
-        <article class="post article-card" data-title="healthy eating on a budget in zambia nutrition meal planning local foods">
+        <article class="post article-card" data-search="healthy eating budget zambia nutrition meal planning local foods affordable eating">
           <img src="healthy-eating.jpg" alt="Healthy eating on a budget">
           <div class="post-body">
             <div class="tags">
@@ -341,67 +375,46 @@
             </div>
             <h3 class="h3">Healthy Eating on a Budget in Zambia</h3>
             <p>Simple ways to eat well without overspending.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>Healthy eating does not have to be expensive. Planning meals, choosing local foods, and reducing waste can make nutritious eating more affordable.</p>
-              </div>
-            </details>
+            <a class="read-link" href="articles/healthy-eating-budget.html">Read article →</a>
           </div>
         </article>
 
-        <article class="post article-card" data-title="how to approach academic research with confidence research reliable sources note taking references">
+        <article class="post article-card" data-search="academic research confidence research reliable sources note taking references study skills">
           <img src="research.jpg" alt="Research support">
           <div class="post-body">
             <div class="tags">
               <span class="tag">Research</span>
               <span class="tag">4 min read</span>
             </div>
-            <h3 class="h3">How to approach academic research with confidence</h3>
+            <h3 class="h3">How to Approach Academic Research with Confidence</h3>
             <p>Start with clarity, use reliable sources, and stay organized from the beginning.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>Effective research begins with a clear question. Good note-taking and structured references save time later.</p>
-                <p>Strong research is built on patience, attention to detail, and a methodical approach.</p>
-              </div>
-            </details>
+            <a class="read-link" href="articles/academic-research-confidence.html">Read article →</a>
           </div>
         </article>
 
-        <article class="post article-card" data-title="why data matters in business decision making data analysis business decisions">
+        <article class="post article-card" data-search="data business decision making data analysis business decisions insight planning">
           <img src="data-analysis.jpg" alt="Data analysis">
           <div class="post-body">
             <div class="tags">
               <span class="tag">Data Analysis</span>
               <span class="tag">4 min read</span>
             </div>
-            <h3 class="h3">Why data matters in business decision-making</h3>
+            <h3 class="h3">Why Data Matters in Business Decision-Making</h3>
             <p>Data helps businesses understand patterns and make better decisions.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>Even simple data analysis can reveal useful insights that improve planning, marketing, and operations.</p>
-              </div>
-            </details>
+            <a class="read-link" href="articles/data-decision-making.html">Read article →</a>
           </div>
         </article>
 
-        <article class="post article-card" data-title="three habits that support a healthier routine wellness nutrition habits hydration rest">
+        <article class="post article-card" data-search="healthier routine wellness nutrition habits hydration rest consistency">
           <img src="nutrition.jpg" alt="Nutrition tips">
           <div class="post-body">
             <div class="tags">
               <span class="tag">Wellness</span>
               <span class="tag">3 min read</span>
             </div>
-            <h3 class="h3">Three habits that support a healthier routine</h3>
+            <h3 class="h3">Three Habits That Support a Healthier Routine</h3>
             <p>Small habits can make a big difference over time.</p>
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <p>A regular meal pattern, enough water, and sufficient rest are simple but powerful starting points.</p>
-              </div>
-            </details>
+            <a class="read-link" href="articles/healthier-routine.html">Read article →</a>
           </div>
         </article>
       </div>
@@ -422,14 +435,14 @@
         <a href="health.html">Health Services</a><br>
         <a href="digital.html">Digital Services</a><br>
         <a href="blog.html">Blog</a><br>
-        <a href="archive.html">Archive</a>
+        <a href="contact.html">Contact</a>
       </p>
     </div>
     <div>
-      <div class="kicker">Contact</div>
+      <div class="kicker">Archive</div>
       <p>
-        <a href="mailto:inquiry@nzaliphiri.com">inquiry@nzaliphiri.com</a><br>
-        <a href="https://wa.me/260762634187">+260 762 634 187</a>
+        <a href="articles.html">Current Articles</a><br>
+        <a href="archive.html">Older Archive</a>
       </p>
     </div>
   </div>
@@ -440,19 +453,22 @@
   const clearSearch = document.getElementById('clearSearch');
   const cards = document.querySelectorAll('.article-card');
   const emptyState = document.getElementById('emptyState');
+  const resultsCount = document.getElementById('resultsCount');
 
   function filterArticles() {
     const term = searchInput.value.trim().toLowerCase();
     let visibleCount = 0;
 
     cards.forEach(card => {
-      const text = (card.getAttribute('data-title') || '') + ' ' + card.innerText.toLowerCase();
-      const match = text.includes(term);
+      const haystack = (card.getAttribute('data-search') || '') + ' ' + card.innerText.toLowerCase();
+      const match = term === '' || haystack.includes(term);
+
       card.classList.toggle('hidden', !match);
       if (match) visibleCount++;
     });
 
     emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    resultsCount.textContent = `${visibleCount} article${visibleCount === 1 ? '' : 's'}`;
   }
 
   searchInput.addEventListener('input', filterArticles);
@@ -462,6 +478,8 @@
     filterArticles();
     searchInput.focus();
   });
+
+  filterArticles();
 </script>
 
 </body>
