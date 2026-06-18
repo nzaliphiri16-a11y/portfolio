@@ -903,34 +903,40 @@
 </footer>
 
 <script>
-  const searchInput = document.getElementById('searchInput');
-  const clearSearch = document.getElementById('clearSearch');
-  const cards = document.querySelectorAll('.article-card');
-  const emptyState = document.getElementById('emptyState');
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    const clearSearch = document.getElementById('clearSearch');
+    const emptyState = document.getElementById('emptyState');
 
-  function filterArticles() {
-    const term = searchInput.value.toLowerCase().trim();
-    let visibleCount = 0;
+    const cards = [
+      ...document.querySelectorAll('.post-grid .post'),
+      ...document.querySelectorAll('.featured')
+    ];
 
-    cards.forEach(card => {
-      const text = (card.getAttribute('data-title') || '') + ' ' + card.textContent;
-      const match = text.toLowerCase().includes(term);
-      card.classList.toggle('hidden', term !== '' && !match);
+    function filterArticles() {
+      const term = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
 
-      if (term === '' || match) visibleCount++;
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const match = term === '' || text.includes(term);
+        card.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    searchInput.addEventListener('input', filterArticles);
+
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      filterArticles();
+      searchInput.focus();
     });
 
-    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-  }
-
-  searchInput.addEventListener('input', filterArticles);
-
-  clearSearch.addEventListener('click', () => {
-    searchInput.value = '';
     filterArticles();
-    searchInput.focus();
   });
 </script>
-
 </body>
 </html>
