@@ -14,7 +14,6 @@
       --bg:#111111;
       --bg-soft:#171717;
       --card:#ffffff;
-      --card-soft:#f8f7f4;
       --navy:#0f172a;
       --gold:#d6c2a8;
       --gold-2:#c8a97e;
@@ -85,6 +84,8 @@
       transition:.25s ease;
       cursor:pointer;
       white-space:nowrap;
+      background:none;
+      font:inherit;
     }
 
     .btn:hover{
@@ -257,7 +258,7 @@
 
     .featured-content{
       padding:32px;
-      background:var(--card);
+      background:#fff;
     }
 
     .tags{
@@ -284,24 +285,6 @@
       margin-top:14px;
     }
 
-    .featured-content details{
-      margin-top:18px;
-      border-top:1px solid var(--line);
-      padding-top:16px;
-    }
-
-    .featured-content summary{
-      list-style:none;
-      cursor:pointer;
-      font-weight:700;
-      color:var(--navy);
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-
-    .featured-content summary::-webkit-details-marker{ display:none; }
-
     .article{
       margin-top:14px;
       color:var(--muted);
@@ -313,6 +296,13 @@
       color:var(--navy);
       font-size:1.02rem;
     }
+
+    .article ul{
+      margin:10px 0 12px 18px;
+      color:var(--muted);
+    }
+
+    .article li{ margin-bottom:8px; }
 
     .section-soft{
       background:rgba(255,255,255,.015);
@@ -372,27 +362,12 @@
       margin-top:10px;
     }
 
-    .post-body details{
-      margin-top:16px;
-      border-top:1px solid var(--line);
-      padding-top:14px;
+    .article-card.hidden-article{
+      opacity:.95;
     }
 
-    .post-body summary{
-      list-style:none;
-      cursor:pointer;
-      font-weight:700;
-      color:var(--navy);
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-
-    .post-body summary::-webkit-details-marker{ display:none; }
-
-    .article-card.hidden,
-    .featured.hidden{
-      display:none;
+    .article-card.hidden-article img{
+      filter:grayscale(.15);
     }
 
     .empty-state{
@@ -466,6 +441,80 @@
       fill:#f5f1eb;
     }
 
+    /* MODAL */
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(6px);
+      z-index:9999;
+      padding:40px 20px;
+      overflow-y:auto;
+    }
+
+    .modal.active{ display:block; }
+
+    .modal-content{
+      background:#fff;
+      color:#1f2937;
+      max-width:860px;
+      margin:auto;
+      border-radius:24px;
+      padding:40px;
+      position:relative;
+      box-shadow:0 20px 60px rgba(0,0,0,.3);
+    }
+
+    .modal-close{
+      position:absolute;
+      right:20px;
+      top:20px;
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      background:#f3f4f6;
+      cursor:pointer;
+      font-size:26px;
+      line-height:1;
+      color:#111;
+    }
+
+    .modal-close:hover{
+      background:#e5e7eb;
+    }
+
+    .modal-title{
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(1.8rem, 3vw, 3rem);
+      color:#0f172a;
+      line-height:1;
+      padding-right:60px;
+    }
+
+    .modal-body{
+      margin-top:20px;
+    }
+
+    .modal-body h4{
+      margin:20px 0 10px;
+      color:#0f172a;
+      font-size:1.08rem;
+    }
+
+    .modal-body p,
+    .modal-body li{
+      color:#475569;
+      line-height:1.8;
+    }
+
+    .modal-body ul{
+      margin:10px 0 12px 18px;
+    }
+
+    body.modal-open{ overflow:hidden; }
+
     @media (max-width: 960px){
       .hero-wrap,
       .featured-inner,
@@ -500,8 +549,14 @@
       .featured-content,
       .post-body,
       .cta,
-      .search-wrap{
+      .search-wrap,
+      .modal-content{
         padding:20px;
+      }
+
+      .modal-close{
+        right:14px;
+        top:14px;
       }
     }
   </style>
@@ -529,19 +584,33 @@
     <div class="container hero-wrap">
       <div class="hero-copy">
         <div class="kicker">Blog</div>
-        <h1 class="h1">Useful ideas, written simply.</h1>
+        <h1 class="h1">Nutrition Insights, Personal Development and more...</h1>
         <p>
-          A clean and professional space for nutrition insights, research support, data analysis tips, and practical guidance for students and professionals.
+          Welcome to my blog, a space for nutrition insights, research support, data analysis tips, and practical guidance for students and professionals.
         </p>
         <div class="btns">
           <a class="btn primary" href="articles.html">More Articles</a>
-          <a class="btn ghost" href="archive.html">Archive</a>
         </div>
       </div>
 
       <div class="hero-photo">
-        <img src="hero-photoo.jpg" alt="Nzali Phiri">
+        <img src="images/hero-photoo.jpg" alt="Nzali Phiri">
         <div class="label">Your digital nutritionist</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="search-wrap">
+        <div class="search-row">
+          <input type="text" id="searchInput" placeholder="Search articles..." aria-label="Search articles">
+          <button class="btn primary" id="clearSearch" type="button">Clear</button>
+          <a class="btn ghost" href="articles.html">Archive</a>
+        </div>
+      </div>
+      <div class="empty-state" id="emptyState">
+        No articles matched your search.
       </div>
     </div>
   </section>
@@ -554,7 +623,7 @@
       <div class="featured article-card" style="margin-top:22px;" data-title="healthy eating budget zambia nutrition affordable meals">
         <div class="featured-inner">
           <div class="featured-image">
-            <img src="healthy-eating.jpg" alt="Healthy eating on a budget">
+            <img src="images/healthy-eating.jpg" alt="Healthy eating on a budget">
           </div>
 
           <div class="featured-content">
@@ -568,43 +637,39 @@
               Healthy eating does not have to be expensive. With a little planning and the right food choices, you can enjoy balanced meals while staying within your budget.
             </p>
 
-            <details>
-              <summary>Read article</summary>
-              <div class="article">
-                <h4>Plan Before You Shop</h4>
-                <p>
-                  Many people believe healthy eating is expensive, but research shows that nutritious diets can be affordable with good planning and smart food choices.
-                </p>
-                <p>
-                  Creating a meal plan and shopping list helps reduce impulse purchases and food waste. Planning meals around ingredients you can use in multiple dishes can stretch your budget further.
-                </p>
+            <button class="btn ghost read-more" type="button" style="margin-top:18px;">Read Article</button>
 
-                <h4>Choose Local and Seasonal Foods</h4>
-                <p>
-                  Locally grown and seasonal foods are often cheaper and just as nutritious. Staples such as beans, sweet potatoes, leafy greens, tomatoes, and seasonal fruits provide essential nutrients at a reasonable cost.
-                </p>
+            <div class="article-content" hidden>
+              <h4>Plan Before You Shop</h4>
+              <p>
+                Many people believe healthy eating is expensive, but nutritious diets can be affordable with good planning and smart food choices. Creating a meal plan and shopping list helps reduce impulse purchases and food waste.
+              </p>
 
-                <h4>Include Affordable Protein Sources</h4>
-                <p>
-                  Beans, lentils, peas, eggs, and groundnuts are nutritious sources of protein that often cost less than meat. Regularly including these foods can support a healthy diet while saving money.
-                </p>
+              <h4>Choose Local and Seasonal Foods</h4>
+              <p>
+                Locally grown and seasonal foods are often cheaper and just as nutritious. Staples such as beans, sweet potatoes, leafy greens, tomatoes, and seasonal fruits provide essential nutrients at a reasonable cost.
+              </p>
 
-                <h4>Reduce Food Waste</h4>
-                <p>
-                  Store food properly, use leftovers creatively, and cook only what you need. Reducing waste is one of the easiest ways to lower food expenses.
-                </p>
+              <h4>Include Affordable Protein Sources</h4>
+              <p>
+                Beans, lentils, peas, eggs, and groundnuts are nutritious sources of protein that often cost less than meat. Regularly including these foods can support a healthy diet while saving money.
+              </p>
 
-                <h4>Cook More Meals at Home</h4>
-                <p>
-                  Home-cooked meals are more affordable and can be healthier than takeaway foods because you control the ingredients and portion sizes.
-                </p>
+              <h4>Reduce Food Waste</h4>
+              <p>
+                Store food properly, use leftovers creatively, and cook only what you need. Reducing waste is one of the easiest ways to lower food expenses.
+              </p>
 
-                <h4>The Bottom Line</h4>
-                <p>
-                  Healthy eating does not have to break the bank. By planning meals, choosing local foods, reducing waste, and cooking at home, you can enjoy a nutritious diet while staying within your budget.
-                </p>
-              </div>
-            </details>
+              <h4>Cook More Meals at Home</h4>
+              <p>
+                Home-cooked meals are more affordable and can be healthier than takeaway foods because you control the ingredients and portion sizes.
+              </p>
+
+              <h4>The Bottom Line</h4>
+              <p>
+                Healthy eating does not have to break the bank. By planning meals, choosing local foods, reducing waste, and cooking at home, you can enjoy a nutritious diet while staying within your budget.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -618,142 +683,228 @@
           <div class="kicker">Latest Articles</div>
           <h2 class="h2">More to explore</h2>
         </div>
-        <a class="btn ghost" href="archive.html">Browse Archive</a>
+        <a class="btn ghost" href="articles.html">Browse Archive</a>
       </div>
 
       <div class="post-grid" id="articleGrid">
-  <article class="post article-card" data-title="nutrition workplace productivity employee wellbeing">
-    <img src="nutrition-workplace-productivity.jpg" alt="Healthy meal and productive work setting">
-    <div class="post-body">
-      <div class="tags">
-        <span class="tag">Nutrition</span>
-        <span class="tag">4 min read</span>
+
+        <article class="post article-card" data-title="nutrition workplace productivity employee wellbeing">
+          <img src="images/nutrition-workplace-productivity.jpg" alt="Healthy meal and productive work setting">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Nutrition</span>
+              <span class="tag">4 min read</span>
+            </div>
+            <h3 class="h3">Nutrition and Workplace Productivity</h3>
+            <p>How better food choices can improve energy, focus, and performance at work.</p>
+            <button class="btn ghost read-more" type="button" style="margin-top:16px;">Read Article</button>
+
+            <div class="article-content" hidden>
+              <h4>Why Nutrition Matters at Work</h4>
+              <p>
+                Most people know the feeling: the morning starts well, but by the afternoon your energy drops, your focus slips, and even simple tasks take more effort than they should. It is easy to blame stress, a busy schedule, or lack of sleep, but food choices also play a quiet role in how well we work.
+              </p>
+
+              <p>
+                Nutrition affects the way we think, feel, and function during the day. When meals are balanced and consistent, many people find it easier to stay alert, concentrate for longer, and manage their workload with less mental fatigue. Research on workplace nutrition suggests that well-designed nutrition interventions can support productivity, although the size of the benefit depends on the setting and the type of intervention.
+              </p>
+
+              <h4>The Link Between Food and Performance</h4>
+              <p>
+                The brain does not work in isolation from the rest of the body. It needs a steady supply of energy and nutrients to keep attention, memory, and decision-making on track. That is one reason breakfast still matters for many people. Reviews of the evidence suggest that breakfast can have a small but meaningful positive effect on morning cognition, especially memory in healthy adults.
+              </p>
+
+              <p>
+                The quality of food also matters. Diets that rely heavily on ultra-processed products tend to be lower in nutrients and are increasingly linked with poorer health and cognitive outcomes in the literature. That does not mean every convenience food is a problem, but it does suggest that meals built mostly around minimally processed foods are a better everyday choice.
+              </p>
+
+              <h4>What Helps in Real Life</h4>
+              <p>
+                Good nutrition at work does not require a perfect diet or expensive ingredients. It usually comes down to a few practical habits that are easy to repeat.
+              </p>
+
+              <ul>
+                <li><strong>Eat something in the morning if you can.</strong> It does not have to be a large breakfast. A simple meal or snack that includes protein, fiber, and fluid can help start the day more steadily than skipping until lunch.</li>
+                <li><strong>Drink water regularly.</strong> Even mild dehydration can affect attention, memory, and mood. Keeping water nearby is one of the easiest habits to maintain at a desk, in a classroom, or on the move.</li>
+                <li><strong>Plan for busy days.</strong> When work gets hectic, people often end up relying on vending machines, fast food, or whatever is closest. Packing a simple lunch or snack ahead of time can reduce that pressure.</li>
+                <li><strong>Choose foods that keep you satisfied.</strong> Meals that include some protein, vegetables or fruit, and a high-fiber carbohydrate are often more satisfying than meals made mostly of refined snacks.</li>
+                <li><strong>Take a real break to eat.</strong> Eating while rushing, scrolling, or sitting through meetings can make it harder to notice hunger and fullness. A short break can help you return to work with better concentration.</li>
+                <li><strong>Watch the pattern, not perfection.</strong> One less-than-ideal meal will not ruin your day. What matters most is the pattern you repeat most of the time.</li>
+              </ul>
+
+              <h4>What Employers Can Do</h4>
+              <p>
+                A healthy workplace makes healthy choices easier. Employers do not need to become nutrition experts to make a difference. Small supports such as clean drinking water, protected meal breaks, and access to more wholesome food options can help staff stay focused and well throughout the day.
+              </p>
+
+              <p>
+                Workplace health promotion studies suggest that nutrition-related support can contribute to better productivity, especially when the intervention is practical, well-targeted, and easy for employees to use.
+              </p>
+
+              <h4>The Bottom Line</h4>
+              <p>
+                Nutrition is not a side issue at work. It affects energy, attention, mood, and how people handle the pressure of the day. A better lunch, a glass of water, or a more consistent breakfast will not solve every productivity problem, but these habits can make a real difference over time.
+              </p>
+
+              <p>
+                The most useful approach is also the simplest: eat regularly, choose mostly minimally processed foods, stay hydrated, and make it easier to follow those habits in real life.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="post article-card" data-title="food security challenges opportunities agriculture">
+          <img src="images/food-security-challenges-opportunities.jpg" alt="Farm landscape representing food security">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Food Security</span>
+              <span class="tag">5 min read</span>
+            </div>
+            <h3 class="h3">Food Security Challenges and Opportunities</h3>
+            <p>Exploring the barriers that affect food access and the solutions that can strengthen systems.</p>
+            <button class="btn ghost read-more" type="button" style="margin-top:16px;">Read Article</button>
+
+            <div class="article-content" hidden>
+              <h4>Main Challenges</h4>
+              <p>
+                Food security is influenced by many factors at once. Climate shocks, rising food prices, poor storage, weak transport systems, conflict, and limited market access can all make it harder for people to get enough safe and nutritious food.
+              </p>
+
+              <p>
+                In many places, the challenge is not only producing food but also getting it where it is needed, keeping it from spoiling, and making it affordable for households.
+              </p>
+
+              <h4>Opportunities for Change</h4>
+              <p>
+                Even with these challenges, there are practical solutions that can make a real difference. Better storage and transport systems can reduce losses after harvest. Climate-smart farming methods can help farmers adapt to changing weather. Local markets can be strengthened so that producers and buyers connect more easily.
+              </p>
+
+              <ul>
+                <li>Improving storage and transport systems.</li>
+                <li>Supporting climate-smart agriculture.</li>
+                <li>Strengthening local food markets.</li>
+                <li>Investing in nutrition-sensitive policies.</li>
+              </ul>
+
+              <h4>The Bigger Picture</h4>
+              <p>
+                Food security is not only about farm production. It also includes income, access, stability, and the ability to use food well. That is why solutions need to involve farmers, businesses, communities, and governments working together.
+              </p>
+
+              <h4>Takeaway</h4>
+              <p>
+                Food security is a shared challenge, but innovation, policy, and community action create real opportunities for progress.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="post article-card" data-title="agribusiness opportunities for young people youth entrepreneurship">
+          <img src="images/agribusiness-opportunities-young-people.jpg" alt="Young entrepreneur working in agribusiness">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Agribusiness</span>
+              <span class="tag">5 min read</span>
+            </div>
+            <h3 class="h3">Agribusiness Opportunities for Young People</h3>
+            <p>Practical ways young people can build income, innovation, and careers in agribusiness.</p>
+            <button class="btn ghost read-more" type="button" style="margin-top:16px;">Read Article</button>
+
+            <div class="article-content" hidden>
+              <h4>Where the Opportunities Are</h4>
+              <p>
+                Agribusiness is bigger than farming alone. Young people can build opportunities in production, processing, packaging, logistics, marketing, and digital services that support agriculture.
+              </p>
+
+              <p>
+                That means there is room for people who are interested in working with crops, livestock, food products, technology, customer service, or business management.
+              </p>
+
+              <h4>Ideas to Explore</h4>
+              <ul>
+                <li>Vegetable and poultry production.</li>
+                <li>Food processing and value addition.</li>
+                <li>Agricultural content creation and marketing.</li>
+                <li>Input supply, storage, and distribution services.</li>
+              </ul>
+
+              <h4>Starting Small Still Counts</h4>
+              <p>
+                Many successful businesses begin with one product, one service, or one local market. Young people do not need to start with a large operation. A small but well-run idea can become the foundation for something bigger.
+              </p>
+
+              <p>
+                Skills such as record-keeping, customer communication, basic budgeting, and problem-solving are just as important as technical knowledge in the field.
+              </p>
+
+              <h4>Takeaway</h4>
+              <p>
+                Agribusiness offers young people a pathway to create jobs, solve problems, and build sustainable enterprises.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="post article-card" data-title="nutrition labeling food packages consumer awareness">
+          <img src="images/nutrition-labeling.jpg" alt="Food package with nutrition label">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Nutrition Labeling</span>
+              <span class="tag">4 min read</span>
+            </div>
+            <h3 class="h3">Nutrition Labeling</h3>
+            <p>Learn how nutrition labels help consumers make healthier and more informed choices.</p>
+            <button class="btn ghost read-more" type="button" style="margin-top:16px;">Read Article</button>
+
+            <div class="article-content" hidden>
+              <h4>Why Labels Matter</h4>
+              <p>
+                Nutrition labels help people compare foods, check ingredients, and understand serving sizes. They make it easier to notice what is really in a product instead of relying only on packaging claims.
+              </p>
+
+              <p>
+                For many shoppers, labels are one of the simplest tools for making better choices in the grocery store.
+              </p>
+
+              <h4>What to Look For</h4>
+              <ul>
+                <li>Serving size and number of servings.</li>
+                <li>Calories and key nutrients.</li>
+                <li>Added sugar, salt, and saturated fat.</li>
+                <li>Ingredient lists and allergen information.</li>
+              </ul>
+
+              <h4>Reading Labels in Practice</h4>
+              <p>
+                A useful habit is to compare two similar products side by side. Look at the serving size first, then check nutrients that matter most for your goals. Even small differences can add up over time.
+              </p>
+
+              <p>
+                Ingredient lists are also helpful. In general, shorter and more familiar ingredient lists are easier to understand, though that is not a rule on its own.
+              </p>
+
+              <h4>Takeaway</h4>
+              <p>
+                Reading labels carefully can support healthier shopping decisions and better eating habits.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="post article-card hidden-article" data-title="coming soon">
+          <img src="images/coming-soon.jpg" alt="Coming soon">
+          <div class="post-body">
+            <div class="tags">
+              <span class="tag">Coming Soon</span>
+            </div>
+            <h3 class="h3">Coming Soon</h3>
+            <p>This article is not available yet.</p>
+          </div>
+        </article>
       </div>
-      <h3 class="h3">Nutrition and Workplace Productivity</h3>
-      <p>How better food choices can improve energy, focus, and performance at work.</p>
-      <details>
-        <summary>Read article</summary>
-        <div class="article">
-          <h4>Why Nutrition Matters at Work</h4>
-          <p>Good nutrition supports concentration, mood, and stamina throughout the workday.</p>
-
-          <h4>Key Points</h4>
-          <ul>
-            <li>Balanced meals help maintain steady energy.</li>
-            <li>Hydration supports attention and mental clarity.</li>
-            <li>Healthy snacks can reduce fatigue between meals.</li>
-            <li>Better eating habits may support consistent performance.</li>
-          </ul>
-
-          <h4>Takeaway</h4>
-          <p>Workplace productivity improves when employees have access to practical nutrition habits and supportive food environments.</p>
-        </div>
-      </details>
     </div>
-  </article>
+  </section>
 
-  <article class="post article-card" data-title="food security challenges opportunities agriculture">
-    <img src="food-security-challenges-opportunities.jpg" alt="Farm landscape representing food security">
-    <div class="post-body">
-      <div class="tags">
-        <span class="tag">Food Security</span>
-        <span class="tag">5 min read</span>
-      </div>
-      <h3 class="h3">Food Security Challenges and Opportunities</h3>
-      <p>Exploring the barriers that affect food access and the solutions that can strengthen systems.</p>
-      <details>
-        <summary>Read article</summary>
-        <div class="article">
-          <h4>Main Challenges</h4>
-          <p>Food insecurity can be driven by climate shocks, rising prices, weak infrastructure, and limited market access.</p>
-
-          <h4>Opportunities for Change</h4>
-          <ul>
-            <li>Improving storage and transport systems.</li>
-            <li>Supporting climate-smart agriculture.</li>
-            <li>Strengthening local food markets.</li>
-            <li>Investing in nutrition-sensitive policies.</li>
-          </ul>
-
-          <h4>Takeaway</h4>
-          <p>Food security is a shared challenge, but innovation, policy, and community action create real opportunities for progress.</p>
-        </div>
-      </details>
-    </div>
-  </article>
-
-  <article class="post article-card" data-title="agribusiness opportunities for young people youth entrepreneurship">
-    <img src="agribusiness-opportunities-young-people.jpg" alt="Young entrepreneur working in agribusiness">
-    <div class="post-body">
-      <div class="tags">
-        <span class="tag">Agribusiness</span>
-        <span class="tag">5 min read</span>
-      </div>
-      <h3 class="h3">Agribusiness Opportunities for Young People</h3>
-      <p>Practical ways young people can build income, innovation, and careers in agribusiness.</p>
-      <details>
-        <summary>Read article</summary>
-        <div class="article">
-          <h4>Where the Opportunities Are</h4>
-          <p>Young people can participate in production, processing, marketing, logistics, packaging, and digital agri-services.</p>
-
-          <h4>Ideas to Explore</h4>
-          <ul>
-            <li>Vegetable and poultry production.</li>
-            <li>Food processing and value addition.</li>
-            <li>Agricultural content creation and marketing.</li>
-            <li>Input supply, storage, and distribution services.</li>
-          </ul>
-
-          <h4>Takeaway</h4>
-          <p>Agribusiness offers young people a pathway to create jobs, solve problems, and build sustainable enterprises.</p>
-        </div>
-      </details>
-    </div>
-  </article>
-
-  <article class="post article-card" data-title="nutrition labeling food packages consumer awareness">
-    <img src="nutrition-labeling.jpg" alt="Food package with nutrition label">
-    <div class="post-body">
-      <div class="tags">
-        <span class="tag">Nutrition Labeling</span>
-        <span class="tag">4 min read</span>
-      </div>
-      <h3 class="h3">Nutrition Labeling</h3>
-      <p>Learn how nutrition labels help consumers make healthier and more informed choices.</p>
-      <details>
-        <summary>Read article</summary>
-        <div class="article">
-          <h4>Why Labels Matter</h4>
-          <p>Nutrition labels help people compare foods, check ingredients, and understand serving sizes.</p>
-
-          <h4>What to Look For</h4>
-          <ul>
-            <li>Serving size and number of servings.</li>
-            <li>Calories and key nutrients.</li>
-            <li>Added sugar, salt, and saturated fat.</li>
-            <li>Ingredient lists and allergen information.</li>
-          </ul>
-
-          <h4>Takeaway</h4>
-          <p>Reading labels carefully can support healthier shopping decisions and better eating habits.</p>
-        </div>
-      </details>
-    </div>
-  </article>
-
-  <!-- Hidden article template: only show this card when an article is not ready yet -->
-  <article class="post article-card hidden-article" data-title="coming soon">
-    <img src="coming-soon.jpg" alt="Coming soon">
-    <div class="post-body">
-      <div class="tags">
-        <span class="tag">Coming Soon</span>
-      </div>
-      <h3 class="h3">Coming Soon</h3>
-      <p>This article is not available yet.</p>
-    </div>
-  </article>
-</div>
   <section class="section">
     <div class="container">
       <div class="cta">
@@ -824,6 +975,15 @@
   </div>
 </footer>
 
+<!-- MODAL -->
+<div class="modal" id="articleModal" aria-hidden="true">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" type="button" aria-label="Close article">&times;</button>
+    <h2 class="modal-title" id="modalTitle">Article</h2>
+    <div class="modal-body" id="modalArticle"></div>
+  </div>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
@@ -831,11 +991,12 @@
     const emptyState = document.getElementById('emptyState');
 
     const cards = [
-      ...document.querySelectorAll('.post-grid .post'),
-      ...document.querySelectorAll('.featured')
+      ...document.querySelectorAll('.article-card')
     ];
 
     function filterArticles() {
+      if (!searchInput || !emptyState) return;
+
       const term = searchInput.value.trim().toLowerCase();
       let visibleCount = 0;
 
@@ -849,15 +1010,60 @@
       emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
-    searchInput.addEventListener('input', filterArticles);
+    if (searchInput) {
+      searchInput.addEventListener('input', filterArticles);
+    }
 
-    clearSearch.addEventListener('click', () => {
-      searchInput.value = '';
-      filterArticles();
-      searchInput.focus();
-    });
+    if (clearSearch) {
+      clearSearch.addEventListener('click', () => {
+        searchInput.value = '';
+        filterArticles();
+        searchInput.focus();
+      });
+    }
 
     filterArticles();
+
+    const modal = document.getElementById('articleModal');
+    const modalArticle = document.getElementById('modalArticle');
+    const modalTitle = document.getElementById('modalTitle');
+    const closeBtn = document.querySelector('.modal-close');
+
+    function openModal(fromButton) {
+      const card = fromButton.closest('.article-card');
+      const articleContent = card.querySelector('.article-content');
+      const title = card.querySelector('.h3')?.textContent || 'Article';
+
+      modalTitle.textContent = title;
+      modalArticle.innerHTML = articleContent ? articleContent.innerHTML : '<p>No article content available.</p>';
+
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+
+    document.querySelectorAll('.read-more').forEach(button => {
+      button.addEventListener('click', () => openModal(button));
+    });
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      modalArticle.innerHTML = '';
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
   });
 </script>
 </body>
