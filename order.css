@@ -253,3 +253,64 @@ font-size:17px;
 }
 
 }
+
+.hero{
+    position:relative;
+    height:55vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("images/smoked-bg.jpg") center center/cover no-repeat;
+    filter:blur(6px);
+    transform:scale(1.1);
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    z-index:2;
+}
+
+.hero-content{
+    color:#fff;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:55px;
+    font-weight:700;
+    line-height:1.1;
+    text-shadow:0 5px 20px rgba(0,0,0,.5);
+}
+
+.hero p{
+    margin:20px 0;
+    font-size:18px;
+}
+
+.hero-btn{
+    display:inline-block;
+    padding:15px 35px;
+    background:#ff8c00;
+    color:#fff;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.hero-btn:hover{
+    background:#e67e00;
+}
