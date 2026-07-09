@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Now | Mandy's Delicious Smokies</title>
+
+<link rel="stylesheet" href="order.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<section class="hero">
+
+<div class="overlay">
+
+<div class="container">
+
+<h1>
+<span class="white">MANDY'S</span>
+<span class="orange">DELICIOUS</span><br>
+<span class="white">SMOKIES</span>
+</h1>
+
+<p class="subtitle">
+Freshly smoked to perfection.
+Place your order below.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="order-section">
+
+<div class="container">
+
+<h2>Customer Information</h2>
+
+<form id="orderForm">
+
+<div class="input-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="name"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="phone"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Delivery Address</label>
+
+<textarea
+id="address"
+rows="3"></textarea>
+
+</div>
+
+
+<h2>Choose Your Order</h2>
+
+
+<!-- Chicken -->
+
+<div class="menu-card">
+
+<h3>Chicken Smokies</h3>
+
+<label>
+
+<select id="chicken">
+
+<option value="">Select</option>
+
+<option value="Full Chicken|250">
+Full Chicken — K250
+</option>
+
+<option value="Half Chicken|175">
+Half Chicken — K175
+</option>
+
+<option value="Quarter Chicken|140">
+Quarter Chicken — K140
+</option>
+
+<option value="Chicken Pieces|25">
+Chicken Pieces — K25/kg
+</option>
+
+</select>
+
+</label>
+
+<input
+type="number"
+id="chickenQty"
+placeholder="Quantity"
+min="0">
+
+</div>
+
+
+<!-- Fish -->
+
+<div class="menu-card">
+
+<h3>Fish Smokies</h3>
+
+<select id="fish">
+
+<option value="">Select</option>
+
+<option value="Large Fish|100">
+Large Fish — K100
+</option>
+
+<option value="Medium Fish|60">
+Medium Fish — K60
+</option>
+
+<option value="Small Fish|40">
+Small Fish — K40
+</option>
+
+</select>
+
+<input
+type="number"
+id="fishQty"
+placeholder="Quantity"
+min="0">
+
+</div>
+
+
+<!-- Beef -->
+
+<div class="menu-card">
+
+<h3>Beef</h3>
+
+<select id="beef">
+
+<option value="">Select</option>
+
+<option value="T-Bone|30">
+T-Bone — K30/kg
+</option>
+
+<option value="Mixed Cut|25">
+Mixed Cut — K25/kg
+</option>
+
+</select>
+
+<input
+type="number"
+id="beefQty"
+placeholder="Kilograms"
+min="0">
+
+</div>
+
+
+<h2>Payment</h2>
+
+<select id="payment">
+
+<option>Cash</option>
+
+<option>Mobile Money</option>
+
+<option>Bank Transfer</option>
+
+</select>
+
+
+<div class="billing">
+
+<h2>Billing Summary</h2>
+
+<div id="summary">
+
+No items selected.
+
+</div>
+
+<h3>
+
+Total:
+<span id="total">
+K0.00
+</span>
+
+</h3>
+
+<p class="note">
+
+Delivery charges are calculated separately depending on your location.
+
+</p>
+
+</div>
+
+
+<button
+type="button"
+id="orderBtn">
+
+<i class="fab fa-whatsapp"></i>
+
+ORDER NOW
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<script src="order.js"></script>
+
+</body>
+</html>
