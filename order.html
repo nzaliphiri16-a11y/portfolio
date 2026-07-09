@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Order Now | Mandy's Delicious Smokies</title>
 
 <link rel="stylesheet" href="order.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
 
 <body>
 
+<!-- HERO -->
+
 <section class="hero">
 
-<div class="overlay">
+<div class="hero-overlay">
 
-<div class="container">
+<div class="hero-content">
 
-<h1>
-<span class="white">MANDY'S</span>
-<span class="orange">DELICIOUS</span><br>
-<span class="white">SMOKIES</span>
-</h1>
+<h1>MANDY'S<br>DELICIOUS<br>SMOKIES</h1>
 
-<p class="subtitle">
-Freshly smoked to perfection.
-Place your order below.
+<p>
+Freshly Smoked • Freshly Packed • Ready To Order
 </p>
+
+<a href="#orderForm" class="hero-btn">
+Order Now
+</a>
 
 </div>
 
@@ -44,73 +53,105 @@ Place your order below.
 
 </section>
 
+<!-- ORDER SECTION -->
 
 <section class="order-section">
 
 <div class="container">
 
-<h2>Customer Information</h2>
+<h2>Place Your Order</h2>
 
 <form id="orderForm">
 
+<!-- CUSTOMER DETAILS -->
+
 <div class="input-group">
 
-<label>Full Name</label>
+<label>
+Full Name
+</label>
 
 <input
 type="text"
 id="name"
+placeholder="Enter your full name"
 required>
 
 </div>
 
 <div class="input-group">
 
-<label>Phone Number</label>
+<label>
+Phone Number
+</label>
 
 <input
 type="tel"
 id="phone"
+placeholder="e.g. 0975XXXXXX"
 required>
 
 </div>
 
 <div class="input-group">
 
-<label>Delivery Address</label>
+<label>
+Delivery Address
+</label>
 
 <textarea
 id="address"
-rows="3"></textarea>
+rows="3"
+placeholder="Enter your delivery address"></textarea>
 
 </div>
 
+<div class="input-group">
 
-<h2>Choose Your Order</h2>
+<label>
+Payment Method
+</label>
 
+<select id="payment">
 
-<!-- Chicken -->
+<option>Cash</option>
+
+<option>Mobile Money</option>
+
+<option>Bank Transfer</option>
+
+</select>
+
+</div>
+
+<hr>
+
+<h2>Select Your Order</h2>
+
+<!-- CHICKEN -->
 
 <div class="menu-card">
 
-<h3>Chicken Smokies</h3>
-
-<label>
+<h3>
+🍗 Chicken Smokies
+</h3>
 
 <select id="chicken">
 
-<option value="">Select</option>
-
-<option value="Full Chicken|250">
-Full Chicken — K250
+<option value="">
+Select Item
 </option>
 
-<option value="Half Chicken|175">
-Half Chicken — K175
+<option value="Full Chicken|210">
+Full Chicken — K210
 </option>
 
-<option value="Quarter Chicken|140">
-Quarter Chicken — K140
+<option value="Half Chicken|155">
+Half Chicken — K155
+</option>
+
+<option value="Quarter Chicken|70">
+Quarter Chicken — K70
 </option>
 
 <option value="Chicken Pieces|25">
@@ -118,8 +159,6 @@ Chicken Pieces — K25/kg
 </option>
 
 </select>
-
-</label>
 
 <input
 type="number"
@@ -129,27 +168,30 @@ min="0">
 
 </div>
 
-
-<!-- Fish -->
+<!-- FISH -->
 
 <div class="menu-card">
 
-<h3>Fish Smokies</h3>
+<h3>
+🐟 Fish Smokies
+</h3>
 
 <select id="fish">
 
-<option value="">Select</option>
-
-<option value="Large Fish|100">
-Large Fish — K100
+<option value="">
+Select Item
 </option>
 
-<option value="Medium Fish|60">
-Medium Fish — K60
+<option value="2 Large Fish|150">
+2 Large Fish — K150
 </option>
 
-<option value="Small Fish|40">
-Small Fish — K40
+<option value="4 Pieces Fish|300">
+4 Pieces — K300
+</option>
+
+<option value="8 Pieces Fish|500">
+8 Pieces — K500
 </option>
 
 </select>
@@ -162,16 +204,19 @@ min="0">
 
 </div>
 
-
-<!-- Beef -->
+<!-- BEEF -->
 
 <div class="menu-card">
 
-<h3>Beef</h3>
+<h3>
+🥩 Beef Smokies
+</h3>
 
 <select id="beef">
 
-<option value="">Select</option>
+<option value="">
+Select Item
+</option>
 
 <option value="T-Bone|30">
 T-Bone — K30/kg
@@ -190,48 +235,50 @@ placeholder="Kilograms"
 min="0">
 
 </div>
-
-
-<h2>Payment</h2>
-
-<select id="payment">
-
-<option>Cash</option>
-
-<option>Mobile Money</option>
-
-<option>Bank Transfer</option>
-
-</select>
-
+<!-- BILLING -->
 
 <div class="billing">
 
 <h2>Billing Summary</h2>
 
 <div id="summary">
-
 No items selected.
-
 </div>
 
 <h3>
-
 Total:
-<span id="total">
-K0.00
-</span>
-
+<span id="total">K0.00</span>
 </h3>
 
 <p class="note">
+<b>Important:</b><br><br>
 
-Delivery charges are calculated separately depending on your location.
+• Prices shown are for smoked products only.<br>
 
+• Delivery charges are calculated separately depending on your location.<br>
+
+• Please confirm your order before clicking <b>ORDER NOW</b>.<br>
+
+• Orders are processed after confirmation on WhatsApp.
 </p>
 
 </div>
 
+<br>
+
+<div class="input-group">
+
+<label>
+
+<input
+type="checkbox"
+required>
+
+I have read and understood the pricing and delivery information.
+
+</label>
+
+</div>
 
 <button
 type="button"
@@ -249,7 +296,46 @@ ORDER NOW
 
 </section>
 
+<footer class="footer">
+
+<div class="container">
+
+<h3>Mandy's Delicious Smokies</h3>
+
+<p>
+Freshly smoked with quality you can taste.
+</p>
+
+<p>
+
+<i class="fa-brands fa-whatsapp"></i>
+
+WhatsApp:
++260 762 634 187
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-phone"></i>
+
+Call:
+0975 473 945
+
+</p>
+
+<p>
+
+Maamba, Zambia
+
+</p>
+
+</div>
+
+</footer>
+
 <script src="order.js"></script>
 
 </body>
+
 </html>
