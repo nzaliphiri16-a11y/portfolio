@@ -267,7 +267,7 @@ font-size:17px;
     content:"";
     position:absolute;
     inset:0;
-    background:url("images/smoked-bg.jpg") center center/cover no-repeat;
+    background:url("smoked-bg.jpg") center center/cover no-repeat;
     filter:blur(6px);
     transform:scale(1.1);
 }
