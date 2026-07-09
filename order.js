@@ -1,6 +1,6 @@
 // Mandy's Delicious Smokies
 // WhatsApp Number
-const whatsappNumber = "260762634187";
+const whatsappNumber = "260975473945";
 
 const chicken = document.getElementById("chicken");
 const chickenQty = document.getElementById("chickenQty");
